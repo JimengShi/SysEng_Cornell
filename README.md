@@ -1,6 +1,6 @@
 # Deep Learning Tutorials · PyTorch on Colab
 
-Learn Python, data analysis, and neural networks through five self-contained notebooks. This independently maintained series adapts the [PEESE SYSEN 5888/6888 materials](https://github.com/PEESEgroup/SysEn6888) for Google Colab. Lessons are written in English; deep-learning examples use PyTorch.
+Learn Python, data analysis, and neural networks through six self-contained notebooks. This independently maintained series adapts the [PEESE SYSEN 5888/6888 materials](https://github.com/PEESEgroup/SysEn6888) for Google Colab. Lessons are written in English; deep-learning examples use PyTorch.
 
 ## Start learning
 
@@ -13,11 +13,12 @@ Click a badge to open a notebook in Colab. No local Python installation or repos
 | **[03 · Regression and Classification](Tutorial_03_PyTorch_Regression_and_Classification/README.md)** | Auto MPG regression and Fashion-MNIST classification with PyTorch | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_03_PyTorch_Regression_and_Classification/tutorial_03_pytorch.ipynb) |
 | **[04 · Convolutional Neural Networks](Tutorial_04_Convolutional_Neural_Networks/README.md)** | MNIST dense/CNN comparison and CIFAR-10 regularization and augmentation | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_04_Convolutional_Neural_Networks/tutorial_04_cnn.ipynb) |
 | **[05 · CNNs in Practice](Tutorial_05_CNN_in_Practice/README.md)** | Transfer learning, feature maps, Grad-CAM, optional neural style transfer, and a visual ViT image-to-token walkthrough | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_05_CNN_in_Practice/tutorial_05_cnn_practice.ipynb) |
+| **[06 · Transfer Learning](Tutorial_06_Transfer_Learning/README.md)** | Pretrained inference, frozen features versus fine-tuning, parameter audits, and five-class flower classification | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_06_Transfer_Learning/tutorial_06_pytorch.ipynb) |
 
 1. Open a notebook and connect to a runtime. A CPU is sufficient for the default examples.
 2. Optionally choose **File → Save a copy in Drive** to keep your changes.
 3. Choose **Runtime → Run all**, or work through the cells in order. Setup cells install missing packages inside Colab.
-4. Read the explanations and try the exercises after the initial run. Each lesson can run independently; following 01 → 05 is recommended for beginners.
+4. Read the explanations and try the exercises after the initial run. Each lesson can run independently; following 01 → 06 is recommended for beginners.
 
 **Private-repository access:** This repository is currently private. Direct Colab links require repository access and GitHub authorization in Colab. “Notebook not found” may indicate missing authorization. Alternatively, download an `.ipynb` file from GitHub and use **File → Upload notebook** in Colab. The badges do not make a private repository publicly accessible.
 
@@ -29,9 +30,11 @@ Click a badge to open a notebook in Colab. No local Python installation or repos
 - **04:** MNIST and CIFAR-10 download automatically (CIFAR-10 archive about 163 MB). Quick mode uses small subsets and three epochs per model. The full archive is still downloaded; the official server can take 20 minutes or more.
 - **05:** Ants/bees archive (about 45 MB) and pretrained MobileNetV2 weights (about 14 MB) download automatically. Frozen features keep the core lesson practical on CPU. Neural style transfer is **off by default**: enabling `RUN_STYLE_TRANSFER` downloads VGG19 weights (about 550 MB) and performs a separate optimization. The tiny Vision Transformer section compares images, patch sequences, numeric embeddings, positional information, and untrained attention; it does not train a classifier.
 
-For 03–05, `QUICK_RUN = True` is the default. Set it to `False` for larger experiments. `DEVICE_PREFERENCE = "auto"` uses a GPU when available and otherwise CPU; select `"cpu"` to force CPU. Downloads require internet access; no API key or Google Drive mount is required. Colab runtime files are temporary: download anything you want to keep from `outputs/tutorial_XX/` before disconnecting.
+- **06:** Flowers archive (about 218 MB) and MobileNetV2 weights (about 14 MB) download automatically. Quick mode uses 200/50/50 train/validation/test images, 20 cached-feature head epochs, and two image-based fine-tuning epochs.
 
-The notebooks retain installed Colab packages and install only missing dependencies. They print their environment versions. All five default code paths passed sequential execution in Colab CPU runtimes. See [validation evidence and limits](docs/validation.md) for the exact tests performed; quick-mode results are teaching examples, not benchmark claims.
+For 03–06, `QUICK_RUN = True` is the default. Set it to `False` for larger experiments. `DEVICE_PREFERENCE = "auto"` uses a GPU when available and otherwise CPU; select `"cpu"` to force CPU. Downloads require internet access; no API key or Google Drive mount is required. Colab runtime files are temporary: download anything you want to keep from `outputs/tutorial_XX/` before disconnecting.
+
+The notebooks retain installed Colab packages and install only missing dependencies. They print their environment versions. Tutorials 01–05 default code paths passed sequential execution in Colab CPU runtimes. See [validation evidence and limits](docs/validation.md) for the exact tests performed; quick-mode results are teaching examples, not benchmark claims.
 
 ## Teaching approach
 
