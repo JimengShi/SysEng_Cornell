@@ -1,6 +1,6 @@
 # Colab validation report
 
-Validated on **2026-10-09** using Google Colab CPU runtimes. All five notebooks' default code paths passed sequential execution (60 code cells total). Published notebooks have cleared outputs and execution counts.
+Validated on **2026-10-09** using Google Colab CPU runtimes. Tutorials 01–05 default code paths passed sequential execution (60 code cells total). Tutorial 06 passes static checks; its 14 code cells have not yet executed because Colab reached its active-session limit. Published notebooks have cleared outputs and execution counts.
 
 ## How the checks were performed
 
@@ -16,6 +16,12 @@ The expanded notebook was opened directly from GitHub commit `e0fde9f23c7c8c9b62
 
 The expanded section compares the input image, numbered patch grid, patch sequence, pixel-vector and embedding heatmaps, positional embeddings, and untrained attention. Checks passed for exact image reconstruction (maximum error 0), convolution/linear projection equivalence, model forward equivalence, and attention row sums. Shapes were `[1,16,192]` for patches, `[1,16,64]` for projected tokens, and `[1,17,64]` after CLS/positions. The default full-notebook run took 35.15 seconds after imports on this runtime. The optional style branch was not rerun because its code was unchanged; its earlier evidence remains recorded.
 
+## Tutorial 06: runtime verification pending
+
+The 14 code cells passed notebook schema, unique-ID, cleared-output, Python/IPython syntax, and Colab-target checks. The exact sources were placed into a Colab verification notebook using the same native `run_cell` harness, but no code executed: Colab reported too many active sessions. Existing sessions were left intact pending user approval to terminate one. Direct GitHub opening required authorization, and browser upload was unavailable because the extension lacked file-URL access. No access permissions were changed.
+
+Consequently, Tutorial 06 has **no measured accuracy, runtime, or passed runtime assertions recorded yet**. Its intended checks cover disjoint splits, actual parameter freezing, unchanged BatchNorm buffers, preserved classifier weights at unfreezing, changed trainable backbone weights, cached/direct inference agreement, and checkpoint reload. CPU quick mode, full mode, GPU execution, downloads, and rendered figures still require runtime verification.
+
 ## Recorded environment and results
 
 Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **2.1.3**, Pandas **2.2.3**, Matplotlib **3.10.0**. Tutorial 02 also used Seaborn **0.13.2** and Plotly **5.24.1**. Machine-learning runs used seed 42 and `QUICK_RUN=True`.
@@ -28,6 +34,8 @@ Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **
 | 04 | 10 | MNIST CNN test accuracy 92.2%; dense model 88.4%. Validation-selected CIFAR-10 Plain CNN: test accuracy 44.65% (baseline 10.2%). All five model runs completed. |
 | 05 | 16 | Ants/bees: validation accuracy 95%, test accuracy 93.33% on 60 test images (baseline 50%); both-class Grad-CAM, model reload, and ViT shape checks passed. |
 
+| 06 | 14 | Static checks passed; Colab runtime verification pending (active-session limit). |
+
 These are observed teaching runs, not benchmark guarantees. In Tutorial 04, three epochs did not make the augmented model outperform the plain model. In Tutorial 05, the archive is an ImageNet subset and the feature extractor was pretrained on ImageNet: these results do not demonstrate independence from pretraining data or generalization to a new domain.
 
 CIFAR-10 downloading dominated Tutorial 04's approximately 22.6-minute recorded run; server speed varies. Quick mode reduces training, not the size of the source archive download. Tutorial 05's core run took about 29 seconds after imports on this runtime; this is not a promised duration.
@@ -36,7 +44,7 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 ## Scope and remaining limits
 
-- CPU quick-mode code execution was tested. GPU execution and larger `QUICK_RUN=False` experiments were not tested.
+- CPU quick-mode code execution was tested for Tutorials 01–05. GPU execution and larger `QUICK_RUN=False` experiments were not tested.
 - All required packages were already installed in the tested Colab runtimes. Missing-package installation branches were reviewed, but were not exercised in a stripped runtime.
 - Runtime data and trained weights are not committed. Notebook assertions check splits, shapes, finite values, or checkpoint equality where relevant.
 - Local notebook execution was not performed after the initial sandbox kernel restriction. Local package installation is not counted as runtime validation.
@@ -46,4 +54,4 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 Open a lesson in Colab, connect to a fresh CPU runtime, and run cells in order. For a private repository, authorize access or upload the downloaded notebook. Save the final outputs and environment information, plus `outputs/tutorial_XX/metrics.json` (Tutorial 01 uses `energy_summary.json`). Test full/GPU/optional modes separately and record their settings.
 
-From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all five notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
+From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all six notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.

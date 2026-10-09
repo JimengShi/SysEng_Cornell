@@ -331,6 +331,14 @@
       "method": "Direct GitHub commit e0fde9f23c7c8c9b622e30fc16d08f8f47078d3e opened in Colab; fresh CPU runtime; Run all; downloaded executed notebook confirms all 16 cells executed without errors and exact source match.",
       "published_code_sha256": "04d1e3d2c74552cb45e4fd8f2b791331604e7e2d8dc42214fccbc59c6f2ca5dc",
       "post_validation_change": "Only patch-sequence figure height/layout was adjusted after visual review to separate titles; computational code unchanged. The executed code hash remains recorded in code_sha256."
+    },
+    "06": {
+      "code_sha256": "ed7fe9b968ce8b558e028c289f94baa415fb6b78d7ca57300f0edd633c11a0b8",
+      "code_cells": 14,
+      "status": "static_passed_runtime_pending",
+      "method": "Notebook schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab target checks passed. Exact code sources pasted into a Colab native run_cell verification harness; execution prevented by active-session limit.",
+      "runtime_blocker": "Too many active Colab sessions; existing sessions preserved pending user approval.",
+      "metrics": null
     }
   }
 }
