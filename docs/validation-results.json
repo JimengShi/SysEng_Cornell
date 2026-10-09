@@ -1,6 +1,6 @@
 {
   "date": "2026-10-09",
-  "method": "Exact notebook code cells executed sequentially through native Colab IPython; CPU quick mode. Tutorials 01,02,04 shared a runtime; 03 and revised05 were separate.",
+  "method": "Tutorials 01-04: original sequential Colab code-cell verification. Tutorial 05: subsequent full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
   "tutorials": {
     "01": {
       "code_sha256": "86ab29f78aa832219f3eb835864bb333f235267928bf708dfa4d6715f6fce601",
@@ -209,8 +209,8 @@
       }
     },
     "05": {
-      "code_sha256": "2f2269125ca88a562263da59160363dce7e2d2f91fa64310ad4487d0d326a6d1",
-      "code_cells": 11,
+      "code_sha256": "75f5ef083549c26dee5c93ea9e1823a2a8bf4cbf7b38e14f60a6dd4c307876bd",
+      "code_cells": 16,
       "status": "passed",
       "metrics": {
         "environment": {
@@ -243,13 +243,13 @@
         "best_epoch": 18,
         "gradcam": {
           "ants": {
-            "min": 0,
-            "max": 1,
+            "min": 0.0,
+            "max": 1.0,
             "mean": 0.14046154916286469
           },
           "bees": {
-            "min": 0,
-            "max": 1,
+            "min": 0.0,
+            "max": 1.0,
             "mean": 0.11973156034946442
           }
         },
@@ -262,14 +262,75 @@
           16,
           192
         ],
-        "elapsed_seconds": 28.6
+        "vit_tokenization": {
+          "image_shape": [
+            1,
+            3,
+            32,
+            32
+          ],
+          "patch_shape": [
+            1,
+            16,
+            192
+          ],
+          "embedding_shape": [
+            1,
+            16,
+            64
+          ],
+          "positioned_shape": [
+            1,
+            17,
+            64
+          ],
+          "attention_shape": [
+            1,
+            4,
+            17,
+            17
+          ],
+          "reconstruction_max_error": 0.0,
+          "projection_equivalence": true,
+          "forward_equivalence": true,
+          "attention_rows_sum_to_one": true,
+          "trained": false,
+          "patch_sizes": [
+            {
+              "patch_side_pixels": 4,
+              "patch_tokens": 64,
+              "pixels_per_patch_vector": 48,
+              "sequence_including_cls": 65,
+              "attention_entries_per_head": 4225
+            },
+            {
+              "patch_side_pixels": 8,
+              "patch_tokens": 16,
+              "pixels_per_patch_vector": 192,
+              "sequence_including_cls": 17,
+              "attention_entries_per_head": 289
+            },
+            {
+              "patch_side_pixels": 16,
+              "patch_tokens": 4,
+              "pixels_per_patch_vector": 768,
+              "sequence_including_cls": 5,
+              "attention_entries_per_head": 25
+            }
+          ]
+        },
+        "elapsed_seconds": 35.15
       },
       "optional_style_check": {
         "executed": true,
         "steps": 40,
         "first_loss": 454754.125,
         "last_loss": 35324.15234375
-      }
+      },
+      "previous_code_sha256": "2f2269125ca88a562263da59160363dce7e2d2f91fa64310ad4487d0d326a6d1",
+      "method": "Direct GitHub commit e0fde9f23c7c8c9b622e30fc16d08f8f47078d3e opened in Colab; fresh CPU runtime; Run all; downloaded executed notebook confirms all 16 cells executed without errors and exact source match.",
+      "published_code_sha256": "04d1e3d2c74552cb45e4fd8f2b791331604e7e2d8dc42214fccbc59c6f2ca5dc",
+      "post_validation_change": "Only patch-sequence figure height/layout was adjusted after visual review to separate titles; computational code unchanged. The executed code hash remains recorded in code_sha256."
     }
   }
 }

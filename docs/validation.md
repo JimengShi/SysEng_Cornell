@@ -1,6 +1,6 @@
 # Colab validation report
 
-Validated on **2026-10-09** using Google Colab CPU runtimes. All five notebooks' default code paths passed sequential execution (55 code cells total). Published notebooks have cleared outputs and execution counts.
+Validated on **2026-10-09** using Google Colab CPU runtimes. All five notebooks' default code paths passed sequential execution (60 code cells total). Published notebooks have cleared outputs and execution counts.
 
 ## How the checks were performed
 
@@ -8,7 +8,13 @@ Because this GitHub repository remains private and the browser's Colab session w
 
 Tutorial 03 ran separately. Tutorials 01, 02, and 04 ran sequentially in a shared runtime; Tutorial 05 was then verified separately after fixing its data source. This verifies actual code execution in Colab. It is not a claim that the private GitHub authorization flow or an imported five-notebook **Run all** workflow was tested. No GitHub authorization or repository visibility change was performed.
 
-The initial generic IPython-shell harness failed at `%matplotlib inline`; using the native Colab shell resolved this harness issue. The original Google-hosted cats/dogs URL returned HTTP 403. Tutorial 05 now uses the PyTorch-hosted ants/bees teaching archive, and the revised default code passed all 11 cells.
+The initial generic IPython-shell harness failed at `%matplotlib inline`; using the native Colab shell resolved this harness issue. The original Google-hosted cats/dogs URL returned HTTP 403. Tutorial 05 now uses the PyTorch-hosted ants/bees teaching archive, and the revised default code initially passed all 11 cells. The later ViT expansion increased Tutorial 05 to 16 code cells.
+
+## Tutorial 05 ViT expansion: direct Run all verification
+
+The expanded notebook was opened directly from GitHub commit `e0fde9f23c7c8c9b622e30fc16d08f8f47078d3e` in Colab and run with **Runtime → Run all** in a fresh CPU runtime. All 16 code cells completed without errors. The downloaded executed notebook matched that commit's code sources exactly. After inspecting the four rendered figures, the patch-sequence figure height/layout was adjusted to separate its titles, and Markdown approximation signs were clarified. These presentation-only adjustments were not rerun; both executed and published code hashes are recorded in the JSON. This later check supersedes the earlier harness-only limitation for Tutorial 05; it does not imply direct-opening tests for the other four lessons.
+
+The expanded section compares the input image, numbered patch grid, patch sequence, pixel-vector and embedding heatmaps, positional embeddings, and untrained attention. Checks passed for exact image reconstruction (maximum error 0), convolution/linear projection equivalence, model forward equivalence, and attention row sums. Shapes were `[1,16,192]` for patches, `[1,16,64]` for projected tokens, and `[1,17,64]` after CLS/positions. The default full-notebook run took 35.15 seconds after imports on this runtime. The optional style branch was not rerun because its code was unchanged; its earlier evidence remains recorded.
 
 ## Recorded environment and results
 
@@ -20,7 +26,7 @@ Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **
 | 02 | 9 | 13 raw rows → 10 clean rows; total 222 kWh; CSV round trip and figure/HTML exports passed. |
 | 03 | 17 | Validation-selected MLP: test MAE 1.917 MPG, RMSE 2.638 MPG (baseline RMSE 7.432). Fashion-MNIST test accuracy 81.75% (baseline 10%). Both checkpoint reload checks passed. |
 | 04 | 10 | MNIST CNN test accuracy 92.2%; dense model 88.4%. Validation-selected CIFAR-10 Plain CNN: test accuracy 44.65% (baseline 10.2%). All five model runs completed. |
-| 05 | 11 | Ants/bees: validation accuracy 95%, test accuracy 93.33% on 60 test images (baseline 50%); both-class Grad-CAM, model reload, and ViT shape checks passed. |
+| 05 | 16 | Ants/bees: validation accuracy 95%, test accuracy 93.33% on 60 test images (baseline 50%); both-class Grad-CAM, model reload, and ViT shape checks passed. |
 
 These are observed teaching runs, not benchmark guarantees. In Tutorial 04, three epochs did not make the augmented model outperform the plain model. In Tutorial 05, the archive is an ImageNet subset and the feature extractor was pretrained on ImageNet: these results do not demonstrate independence from pretraining data or generalization to a new domain.
 
