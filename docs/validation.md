@@ -9,10 +9,14 @@ This report distinguishes checks performed from intended runtime support.
 - Auto MPG was downloaded from UCI and its SHA-256 checksum recorded.
 - Reviewed training-only preprocessing, disjoint splits, sample-weighted losses, validation checkpoint selection, CPU/CUDA tensor placement, and checkpoint metadata.
 - README and notebook include direct Colab links and in-notebook dependency installation.
+- All 17 code cells passed Python syntax checks after IPython magic transformation; local documentation links resolve.
+- Uploaded to `JimengShi/SysEng_Cornell` on `main`; verified that the GitHub README renders the Colab badges.
 
 ## Execution status
 
 End-to-end execution has not yet been verified. The initial local Jupyter attempt stopped before any notebook cells ran because the sandbox blocked the kernel's local ports. A rerun outside the sandbox was not performed.
+
+The direct Colab link was opened in the browser. Colab displayed **Notebook not found** and **Authorize with GitHub** because the repository is private and this Colab session lacks GitHub authorization. The repository remains private by the owner's choice. No GitHub authorization was granted as part of this check. Authorized users can connect Colab to GitHub or download and upload the notebook to Colab.
 
 CPU support, the quick/full modes, learning metrics, rendered plots, and checkpoint round trips remain pending runtime validation. The notebook includes the checks, but their presence does not mean they have passed. No measured runtime or model performance is claimed here.
 

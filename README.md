@@ -14,6 +14,8 @@ Run the tutorial directly in your browser—no local installation is needed: [![
 2. Optionally save your own copy through **File → Save a copy in Drive**.
 3. Use **Runtime → Run all**, or work through cells in order.
 
+**Private-repository access:** While this repository is private, the Colab link requires repository access and GitHub authorization in Colab. A “Notebook not found” message can mean authorization is missing. The link is not publicly accessible until the repository is public. Alternatively, download the notebook from GitHub and open it with **File → Upload notebook** in Colab.
+
 The first code cell installs any missing packages **inside the Colab runtime**. You do not need to clone this repository, install Python locally, mount Google Drive, or complete another notebook first. The default quick run uses a small training set. Dataset downloads require internet access. Colab resources vary; a GPU is not required for Tutorial 03.
 
 **Prerequisites:** basic Python and arrays. The notebook is written in English and includes explanations, results interpretation, exercises, and troubleshooting. Allow about 45–60 minutes for reading and exercises; see the [validation status](docs/validation.md) for checks performed and remaining limitations.

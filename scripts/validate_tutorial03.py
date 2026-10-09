@@ -46,7 +46,7 @@ def main():
     client = NotebookClient(notebook, km=manager, timeout=1800, allow_errors=False,
                             resources={"metadata": {"path": str(work_dir)}})
     try:
-        client.execute()
+        client.execute(cleanup_kc=True)
     finally:
         nbformat.write(notebook, output_dir / "tutorial_03_executed.ipynb")
 
