@@ -1,6 +1,6 @@
 {
   "date": "2026-10-09",
-  "method": "Tutorials 01-04: original sequential Colab code-cell verification. Tutorial 05: subsequent full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
+  "method": "Tutorials 01-04 and 06: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
   "tutorials": {
     "01": {
       "code_sha256": "86ab29f78aa832219f3eb835864bb333f235267928bf708dfa4d6715f6fce601",
@@ -335,10 +335,128 @@
     "06": {
       "code_sha256": "ed7fe9b968ce8b558e028c289f94baa415fb6b78d7ca57300f0edd633c11a0b8",
       "code_cells": 14,
-      "status": "static_passed_runtime_pending",
-      "method": "Notebook schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab target checks passed. Exact code sources pasted into a Colab native run_cell verification harness; execution prevented by active-session limit.",
-      "runtime_blocker": "Too many active Colab sessions; existing sessions preserved pending user approval.",
-      "metrics": null
+      "status": "passed",
+      "method": "Exact published code-cell sources executed sequentially using native Colab run_cell in a fresh CPU runtime. Downloaded verification notebook confirms exact source equality, ALL_14_CELLS_PASSED, and no error outputs. Four output figures visually inspected. This does not test direct GitHub authorization or full notebook import.",
+      "metrics": {
+        "environment": {
+          "python": "3.13.16",
+          "torch": "2.11.0+cpu",
+          "torchvision": "0.26.0+cpu",
+          "numpy": "2.1.3",
+          "pandas": "2.2.3",
+          "matplotlib": "3.10.0",
+          "device": "cpu",
+          "seed": 42,
+          "quick_run": true
+        },
+        "data_url": "https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz",
+        "archive_sha256": "4c54ace7911aaffe13a365c34f650e71dd5bf1be0a58b464e5a7183e3e595d9c",
+        "class_names": [
+          "daisy",
+          "dandelion",
+          "roses",
+          "sunflowers",
+          "tulips"
+        ],
+        "splits": [
+          200,
+          50,
+          50
+        ],
+        "class_counts": [
+          {
+            "class": "daisy",
+            "available": 633,
+            "train": 40,
+            "validation": 10,
+            "test": 10
+          },
+          {
+            "class": "dandelion",
+            "available": 898,
+            "train": 40,
+            "validation": 10,
+            "test": 10
+          },
+          {
+            "class": "roses",
+            "available": 641,
+            "train": 40,
+            "validation": 10,
+            "test": 10
+          },
+          {
+            "class": "sunflowers",
+            "available": 699,
+            "train": 40,
+            "validation": 10,
+            "test": 10
+          },
+          {
+            "class": "tulips",
+            "available": 799,
+            "train": 40,
+            "validation": 10,
+            "test": 10
+          }
+        ],
+        "parameters": {
+          "frozen_stage": {
+            "total": 2230277,
+            "trainable": 6405,
+            "frozen": 2223872
+          },
+          "fine_tune_stage": {
+            "total": 2230277,
+            "trainable": 892485,
+            "frozen": 1337792
+          }
+        },
+        "epochs": {
+          "head": 20,
+          "fine_tune": 2
+        },
+        "best_epochs": {
+          "head": 11,
+          "fine_tune": 1
+        },
+        "validation": {
+          "Frozen features": {
+            "loss": 0.49264774322509763,
+            "accuracy": 0.82
+          },
+          "Fine-tuned": {
+            "loss": 0.477780237197876,
+            "accuracy": 0.84
+          }
+        },
+        "test": {
+          "Frozen features": {
+            "loss": 0.3488228917121887,
+            "accuracy": 0.8999999761581421
+          },
+          "Fine-tuned": {
+            "loss": 0.3167531490325928,
+            "accuracy": 0.8799999952316284
+          }
+        },
+        "selected_by_validation": "Fine-tuned",
+        "baseline_accuracy": 0.20000000298023224,
+        "checks": {
+          "head_preserved": true,
+          "frozen_backbone_unchanged": true,
+          "protected_fine_tune_state_unchanged": true,
+          "unfrozen_weights_changed": true,
+          "cached_direct_equivalence": true,
+          "checkpoint_roundtrip": true
+        },
+        "timing_seconds": {
+          "cache": 13.498678347999999,
+          "head_fit": 0.34978137799998876,
+          "fine_tune_fit": 35.32432073799998,
+          "total_after_imports": 75.34220356400004
+        }
+      }
     }
   }
 }

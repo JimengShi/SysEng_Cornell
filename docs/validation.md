@@ -1,6 +1,6 @@
 # Colab validation report
 
-Validated on **2026-10-09** using Google Colab CPU runtimes. Tutorials 01–05 default code paths passed sequential execution (60 code cells total). Tutorial 06 passes static checks; its 14 code cells have not yet executed because Colab reached its active-session limit. Published notebooks have cleared outputs and execution counts.
+Validated on **2026-10-09** using Google Colab CPU runtimes. All six notebooks’ default code paths passed sequential execution (74 code cells total). Published notebooks have cleared outputs and execution counts.
 
 ## How the checks were performed
 
@@ -16,11 +16,15 @@ The expanded notebook was opened directly from GitHub commit `e0fde9f23c7c8c9b62
 
 The expanded section compares the input image, numbered patch grid, patch sequence, pixel-vector and embedding heatmaps, positional embeddings, and untrained attention. Checks passed for exact image reconstruction (maximum error 0), convolution/linear projection equivalence, model forward equivalence, and attention row sums. Shapes were `[1,16,192]` for patches, `[1,16,64]` for projected tokens, and `[1,17,64]` after CLS/positions. The default full-notebook run took 35.15 seconds after imports on this runtime. The optional style branch was not rerun because its code was unchanged; its earlier evidence remains recorded.
 
-## Tutorial 06: runtime verification pending
+## Tutorial 06: CPU execution verified
 
-The 14 code cells passed notebook schema, unique-ID, cleared-output, Python/IPython syntax, and Colab-target checks. The exact sources were placed into a Colab verification notebook using the same native `run_cell` harness, but no code executed: Colab reported too many active sessions. Existing sessions were left intact pending user approval to terminate one. Direct GitHub opening required authorization, and browser upload was unavailable because the extension lacked file-URL access. No access permissions were changed.
+After the user freed Colab sessions, all 14 exact published code-cell sources executed sequentially in a fresh CPU runtime with Colab’s native `run_cell` harness. The downloaded verification notebook confirms exact source equality, no error outputs, and `ALL_14_CELLS_PASSED`. Four rendered figures (classes, learning curves, test comparison/confusion matrix, and predictions) were visually inspected. Direct GitHub opening required authorization and browser upload was unavailable; this check validates code execution, not the direct-opening or full notebook import workflow. No permissions or repository visibility were changed.
 
-Consequently, Tutorial 06 has **no measured accuracy, runtime, or passed runtime assertions recorded yet**. Its intended checks cover disjoint splits, actual parameter freezing, unchanged BatchNorm buffers, preserved classifier weights at unfreezing, changed trainable backbone weights, cached/direct inference agreement, and checkpoint reload. CPU quick mode, full mode, GPU execution, downloads, and rendered figures still require runtime verification.
+The flower archive and pretrained weights downloaded successfully. All assertions passed: disjoint splits, frozen backbone parameters and buffers, preserved head at unfreezing, unchanged protected fine-tuning state, changed unfrozen weights, cached/direct prediction equivalence, and CPU checkpoint reload. Quick mode used 200/50/50 images, 20 head epochs, and two fine-tuning epochs. Validation loss selected head epoch 11 and fine-tuning epoch 1. Trainable parameters increased from 6,405 to 892,485.
+
+Frozen-feature validation/test accuracy was 82%/90%; fine-tuned accuracy was 84%/88%, against a 20% test baseline. Validation selected the fine-tuned model; its lower test accuracy is retained without retuning on the test set. With only 50 test images, the two-percentage-point difference is one image, not evidence of a general ranking. Fine-tuning is not guaranteed to improve test accuracy. ImageNet pretraining overlap was not audited.
+
+Observed time after imports was 75.34 seconds, including 13.50 seconds caching, 0.35 seconds head fitting, and 35.32 seconds fine-tuning. Timings are observations, not guarantees or energy measurements. Full mode and GPU execution remain untested.
 
 ## Recorded environment and results
 
@@ -33,8 +37,7 @@ Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **
 | 03 | 17 | Validation-selected MLP: test MAE 1.917 MPG, RMSE 2.638 MPG (baseline RMSE 7.432). Fashion-MNIST test accuracy 81.75% (baseline 10%). Both checkpoint reload checks passed. |
 | 04 | 10 | MNIST CNN test accuracy 92.2%; dense model 88.4%. Validation-selected CIFAR-10 Plain CNN: test accuracy 44.65% (baseline 10.2%). All five model runs completed. |
 | 05 | 16 | Ants/bees: validation accuracy 95%, test accuracy 93.33% on 60 test images (baseline 50%); both-class Grad-CAM, model reload, and ViT shape checks passed. |
-
-| 06 | 14 | Static checks passed; Colab runtime verification pending (active-session limit). |
+| 06 | 14 | Frozen features: test accuracy 90%; fine-tuned: 88% on 50 images (baseline 20%). All freezing, fine-tuning, and checkpoint assertions passed. |
 
 These are observed teaching runs, not benchmark guarantees. In Tutorial 04, three epochs did not make the augmented model outperform the plain model. In Tutorial 05, the archive is an ImageNet subset and the feature extractor was pretrained on ImageNet: these results do not demonstrate independence from pretraining data or generalization to a new domain.
 
@@ -44,7 +47,7 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 ## Scope and remaining limits
 
-- CPU quick-mode code execution was tested for Tutorials 01–05. GPU execution and larger `QUICK_RUN=False` experiments were not tested.
+- CPU quick-mode code execution was tested for Tutorials 01–06. GPU execution and larger `QUICK_RUN=False` experiments were not tested.
 - All required packages were already installed in the tested Colab runtimes. Missing-package installation branches were reviewed, but were not exercised in a stripped runtime.
 - Runtime data and trained weights are not committed. Notebook assertions check splits, shapes, finite values, or checkpoint equality where relevant.
 - Local notebook execution was not performed after the initial sandbox kernel restriction. Local package installation is not counted as runtime validation.

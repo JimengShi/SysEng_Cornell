@@ -33,7 +33,7 @@ Click a badge to open a notebook in Colab. No local Python installation or repos
 
 For 03–06, `QUICK_RUN = True` is the default. Set it to `False` for larger experiments. `DEVICE_PREFERENCE = "auto"` uses a GPU when available and otherwise CPU; select `"cpu"` to force CPU. Downloads require internet access; no API key or Google Drive mount is required. Colab runtime files are temporary: download anything you want to keep from `outputs/tutorial_XX/` before disconnecting.
 
-The notebooks retain installed Colab packages and install only missing dependencies. They print their environment versions. Tutorials 01–05 default code paths passed sequential execution in Colab CPU runtimes. Tutorial 06 has passed static checks; runtime verification is pending because the test account reached Colab’s active-session limit. See [validation evidence and limits](docs/validation.md) for the exact tests performed; quick-mode results are teaching examples, not benchmark claims.
+The notebooks retain installed Colab packages and install only missing dependencies. They print their environment versions. All six default code paths passed sequential execution in Colab CPU runtimes. See [validation evidence and limits](docs/validation.md) for the exact tests performed; quick-mode results are teaching examples, not benchmark claims.
 
 ## Teaching approach
 
