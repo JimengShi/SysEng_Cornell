@@ -1,6 +1,6 @@
 {
   "date": "2026-10-11",
-  "method": "Tutorials 01-04, 06, 07, 08, and 09: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
+  "method": "Tutorials 01-04, 06, 07, 08, 09, and 10: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
   "tutorials": {
     "01": {
       "code_sha256": "86ab29f78aa832219f3eb835864bb333f235267928bf708dfa4d6715f6fce601",
@@ -740,6 +740,152 @@
           "masked_loss": true
         },
         "seconds_after_imports": 48.21139925100002
+      }
+    },
+    "10": {
+      "date": "2026-10-11",
+      "code_sha256": "ead57ae745a745ec2e8a7d35f42c5a59bbee09dffd38bf870700586af9e40db3",
+      "code_cells": 13,
+      "status": "passed",
+      "method": "All exact published code cells executed sequentially in a fresh Colab CPU runtime with native run_cell. Downloaded executed notebook confirms exact source equality, no error outputs, and ALL_13_CELLS_PASSED. Ten figures and the first/middle/last frames of the inline seven-frame GIF inspected. AAE skip branch, GPU, larger mode, and direct private-GitHub opening/full notebook import not tested.",
+      "metrics": {
+        "environment": {
+          "python": "3.13.16",
+          "torch": "2.11.0+cpu",
+          "torchvision": "0.26.0+cpu",
+          "numpy": "2.1.3",
+          "pandas": "2.2.3",
+          "matplotlib": "3.10.0",
+          "sklearn": "1.6.1",
+          "device": "cpu",
+          "seed": 42,
+          "quick_run": true,
+          "run_aae": true
+        },
+        "fashion_revision": "b2617bb6d3ffa2e429640350f613e3291e10b141",
+        "fashion_splits": [
+          4000,
+          800,
+          1000
+        ],
+        "mnist_splits": [
+          6000,
+          1000,
+          1000
+        ],
+        "image_metrics": {
+          "AE_test_MSE": 0.03737783059477806,
+          "training_mean_image_test_MSE": 0.08738847076892853,
+          "denoiser_test_MSE": 0.032502736896276474,
+          "unchanged_noisy_test_MSE": 0.05246926471590996
+        },
+        "image_best_epochs": {
+          "ae": 4,
+          "denoiser": 4
+        },
+        "ecg": {
+          "url": "https://storage.googleapis.com/download.tensorflow.org/data/ecg.csv",
+          "sha256": "72ce7b040ca0c6ed36c3368e570c6ac4ddf20100476e47373c63b2395e012df1",
+          "rows": 4998,
+          "duplicates_removed": 0,
+          "splits": [
+            2998,
+            1000,
+            1000
+          ],
+          "normal_training": 1751,
+          "normal_calibration": 584,
+          "best_epoch": 50,
+          "metrics": {
+            "positive_class": "anomaly (CSV label 0)",
+            "threshold": 0.04760212451219559,
+            "threshold_rule": "95th percentile of normal validation MAE",
+            "normal_validation_exceedance": 0.05136986301369863,
+            "accuracy": 0.948,
+            "precision": 0.9504950495049505,
+            "recall": 0.9230769230769231,
+            "f1": 0.9365853658536586,
+            "roc_auc": 0.9813413790832455,
+            "test_false_positive_rate": 0.03424657534246575,
+            "always_normal_accuracy": 0.584,
+            "confusion_matrix": [
+              [
+                564,
+                20
+              ],
+              [
+                32,
+                384
+              ]
+            ]
+          }
+        },
+        "vae": {
+          "latent_dim": 2,
+          "beta": 1.0,
+          "epochs": 6,
+          "best_epoch": 6,
+          "test": {
+            "objective": 188.1715625,
+            "reconstruction": 182.920671875,
+            "KL": 5.250883178710938
+          },
+          "gif_frames": 7
+        },
+        "aae": {
+          "executed": true,
+          "epochs": 2,
+          "training_images": 2000,
+          "best_epoch": 2,
+          "history": [
+            {
+              "epoch": 1,
+              "reconstruction": 0.5416509714126587,
+              "discriminator": 1.048255404472351,
+              "adversarial": 0.3226373208761215,
+              "val_reconstruction": 0.3396902179328763
+            },
+            {
+              "epoch": 2,
+              "reconstruction": 0.31303280067443845,
+              "discriminator": 1.622151686668396,
+              "adversarial": 0.107225057721138,
+              "val_reconstruction": 0.29584331403459824
+            }
+          ],
+          "shared_encoder_and_update_isolation": true,
+          "interpretation": "Short mechanism check; validation reconstruction does not measure generative quality."
+        },
+        "checkpoint_reload": {
+          "dense_ae": true,
+          "denoiser": true,
+          "ecg_ae": true,
+          "aae": true,
+          "vae": true
+        },
+        "figures": [
+          "data_examples.png",
+          "reconstruction_denoising.png",
+          "reconstruction_curves.png",
+          "ecg_evaluation.png",
+          "ecg_examples.png",
+          "vae_curves.png",
+          "vae_reconstruction_generation.png",
+          "vae_latent_space.png",
+          "vae_interpolation.png",
+          "aae_prior.png"
+        ],
+        "checks": {
+          "split_indices": true,
+          "binary_mnist": true,
+          "analytic_KL": true,
+          "reparameterization_gradients": true,
+          "finite_losses": true,
+          "anomaly_label_direction": true,
+          "vae_objective_units": true,
+          "gif_roundtrip": true
+        },
+        "seconds_after_imports": 34.68359821500002
       }
     }
   }
