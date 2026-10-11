@@ -9,7 +9,7 @@ from IPython.core.inputtransformer2 import TransformerManager
 root = Path(__file__).resolve().parents[1]
 transformer = TransformerManager()
 notebooks = sorted(root.glob('Tutorial_*/*.ipynb'))
-assert len(notebooks) == 8, 'Expected eight released notebooks'
+assert len(notebooks) == 9, 'Expected nine released notebooks'
 for path in notebooks:
     notebook = nbformat.read(path, as_version=4)
     nbformat.validate(notebook)

@@ -1,6 +1,6 @@
 # Colab validation report
 
-Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, and Tutorial 08 on **2026-10-11**, using Google Colab CPU runtimes. All eight notebooks’ default code paths passed sequential execution (96 code cells total). Published notebooks have cleared outputs and execution counts.
+Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, and Tutorials 08–09 on **2026-10-11**, using Google Colab CPU runtimes. All nine notebooks’ default code paths passed sequential execution (109 code cells total). Published notebooks have cleared outputs and execution counts.
 
 ## How the checks were performed
 
@@ -44,6 +44,16 @@ Exact-text deduplication yielded 5,994/998/1,995 training/validation/test review
 
 Skip-gram trained on 40,000 positive pairs sampled from 1,000 training reviews, using five noise samples and three epochs. Mean loss fell from 3.7249 to 2.4941. Many nearest neighbors remain poor: loss reduction and PCA plots do not demonstrate useful semantic representations. TSV exports contained 7,998 sentiment vectors and 4,194 observed Skip-gram target vectors. Full-data mode and GPU execution were not tested.
 
+## Tutorial 09: encoder–decoder Transformer verified
+
+All 13 exact published code-cell sources ran sequentially in a fresh Colab CPU runtime using the native `run_cell` harness, including setup, download, six training epochs, held-out greedy generation, exports, and checkpoint reload. The downloaded executed notebook matched the published code exactly, contained no error outputs, and ended with `ALL_13_CELLS_PASSED`. Five figures were inspected: token IDs/padding, causal attention, sinusoidal positions, learning curves, and trained attention heads. Direct private-GitHub authorization and full notebook import were not tested.
+
+The 2.6 MB Google-hosted ManyThings/Tatoeba snapshot downloaded successfully. Filtering retained 111,422 short pairs; deterministic deduplication retained 92,421 pairs with unique normalized source and target sentences. The quick run used 3,000/400/400 train/validation/test pairs, source/target vocabularies of 3,000/2,651 tokens, and a 617,691-parameter model with one encoder block, one decoder block, and four attention heads. Both language sides were disjoint across splits; vocabularies used only training text.
+
+Unicode preservation, shifted targets, manual/PyTorch attention equivalence, future-token invariance, appended-padding invariance, masked attention, finite training, scripted EOS termination, token-masked loss, CPU checkpoint logits, and greedy-generation equality all passed. Validation loss fell from 8.0975 before training to 4.4105 at the selected epoch 6. Test teacher-forced loss was 4.4576 and token accuracy 33.91%, versus a 12.5% constant-EOS baseline; known lexical-token accuracy was 26.52%. Source/target test OOV rates were 14.48%/7.75%.
+
+Free-running generation reached EOS within the cap for 93.75% of the 400 test sentences, but strict normalized-reference exact match was **0%**. The first eight fixed examples were retained rather than selecting favorable translations. This verifies the training/inference implementation, not useful translation quality. Single-reference exact match is strict, and teacher-forced token accuracy must not be described as translation accuracy. Observed time after imports was 48.21 seconds; it is not a promised duration. GPU and larger mode remain untested.
+
 ## Recorded environment and results
 
 Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **2.1.3**, Pandas **2.2.3**, Matplotlib **3.10.0**. Tutorial 02 also used Seaborn **0.13.2** and Plotly **5.24.1**. Machine-learning runs used seed 42 and `QUICK_RUN=True`.
@@ -58,6 +68,7 @@ Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **
 | 06 | 14 | Frozen features: test accuracy 90%; fine-tuned: 88% on 50 images (baseline 20%). All freezing, fine-tuning, and checkpoint assertions passed. |
 | 07 | 11 | Four detections/four masks; five figures inspected; IoU/NMS, coordinate/mask, empty-result, export, two-epoch training, and checkpoint inference checks passed. |
 | 08 | 11 | IMDb neural/TF-IDF test accuracy 80.85%/84.21%; three Skip-gram epochs; five figures, padding, TSV, and checkpoint checks passed. |
+| 09 | 13 | Six Transformer epochs; test teacher-forced token accuracy 33.91%, greedy exact match 0%; causal/padding/EOS/CPU reload checks and five figures passed. |
 
 These are observed teaching runs, not benchmark guarantees. In Tutorial 04, three epochs did not make the augmented model outperform the plain model. In Tutorial 05, the archive is an ImageNet subset and the feature extractor was pretrained on ImageNet: these results do not demonstrate independence from pretraining data or generalization to a new domain.
 
@@ -67,8 +78,8 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 ## Scope and remaining limits
 
-- CPU quick-mode code execution was tested for Tutorials 01–08 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
-- Tutorials 01–06 and 08 found their required packages already installed. Tutorial 07 exercised its pinned Ultralytics installation in Colab. Other missing-package branches were not exhaustively tested in stripped runtimes.
+- CPU quick-mode code execution was tested for Tutorials 01–09 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
+- Tutorials 01–06, 08, and 09 found their required packages already installed. Tutorial 07 exercised its pinned Ultralytics installation in Colab. Other missing-package branches were not exhaustively tested in stripped runtimes.
 - Runtime data and trained weights are not committed. Notebook assertions check splits, shapes, finite values, or checkpoint equality where relevant.
 - Local notebook execution was not performed after the initial sandbox kernel restriction. Local package installation is not counted as runtime validation.
 - Colab resources, installed package versions, and upstream download availability can change. If a runtime has unrelated package modifications, start a fresh runtime before running the lesson.
@@ -77,4 +88,4 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 Open a lesson in Colab, connect to a fresh CPU runtime, and run cells in order. For a private repository, authorize access or upload the downloaded notebook. Save the final outputs and environment information, plus `outputs/tutorial_XX/metrics.json` (Tutorial 01 uses `energy_summary.json`). Test full/GPU/optional modes separately and record their settings.
 
-From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all eight notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
+From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all nine notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.

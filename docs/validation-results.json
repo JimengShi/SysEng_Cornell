@@ -1,6 +1,6 @@
 {
   "date": "2026-10-11",
-  "method": "Tutorials 01-04, 06, 07, and 08: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
+  "method": "Tutorials 01-04, 06, 07, 08, and 09: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
   "tutorials": {
     "01": {
       "code_sha256": "86ab29f78aa832219f3eb835864bb333f235267928bf708dfa4d6715f6fce601",
@@ -666,6 +666,80 @@
           "checkpoint_roundtrip": true
         },
         "seconds_after_imports": 45.097379456
+      }
+    },
+    "09": {
+      "date": "2026-10-11",
+      "code_sha256": "b19a04dc25bf4a030db2fd62753dbb8fe9c743a42d8337a309cd432bd649eae4",
+      "code_cells": 13,
+      "status": "passed",
+      "method": "All exact published code cells executed sequentially in a fresh Colab CPU runtime with native run_cell. Downloaded executed notebook confirms exact source equality, no error outputs, and ALL_13_CELLS_PASSED. Five figures inspected. GPU, larger mode, and direct private-GitHub opening/full notebook import not tested.",
+      "metrics": {
+        "environment": {
+          "python": "3.13.16",
+          "torch": "2.11.0+cpu",
+          "numpy": "2.1.3",
+          "pandas": "2.2.3",
+          "matplotlib": "3.10.0",
+          "device": "cpu",
+          "seed": 42,
+          "quick_run": true
+        },
+        "data_url": "https://storage.googleapis.com/download.tensorflow.org/data/spa-eng.zip",
+        "archive_sha256": "0c4fd7825d3d872488d38c157f784e035edab4f2ff0df25a2a208790ecb5b58f",
+        "filtered_pairs": 111422,
+        "unique_pairs": 92421,
+        "split_sizes": [
+          3000,
+          400,
+          400
+        ],
+        "config": {
+          "source_size": 3000,
+          "target_size": 2651,
+          "d": 64,
+          "heads": 4,
+          "ff": 128,
+          "dropout": 0.1
+        },
+        "parameters": 617691,
+        "epochs": 6,
+        "best_epoch": 6,
+        "initial_validation": {
+          "loss": 8.097469940331193,
+          "token_accuracy": 0.0,
+          "tokens": 3143
+        },
+        "best_validation_loss": 4.410450259629534,
+        "test": {
+          "teacher_forced": {
+            "loss": 4.457637462615967,
+            "token_accuracy": 0.3390625,
+            "tokens": 3200
+          },
+          "constant_token_baseline_accuracy": 0.125,
+          "baseline_token": "<eos>",
+          "known_lexical_token_accuracy": 0.26519550909794815,
+          "greedy_exact_match": 0.0,
+          "greedy_eos_rate": 0.9375,
+          "test_source_oov": 0.14484781811514486,
+          "test_target_oov": 0.0775
+        },
+        "checks": {
+          "unicode": true,
+          "split_separation_both_languages": true,
+          "target_shift": true,
+          "manual_attention": true,
+          "causal_invariance": true,
+          "padding_invariance": true,
+          "masked_attention": true,
+          "finite_training": true,
+          "eos_termination": true,
+          "cpu_checkpoint_logits": true,
+          "cpu_checkpoint_generation": true,
+          "masked_loss": true
+        },
+        "seconds_after_imports": 48.21139925100002
       }
     }
   }
