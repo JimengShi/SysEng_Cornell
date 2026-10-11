@@ -1,6 +1,6 @@
 # Colab validation report
 
-Validated on **2026-10-09** using Google Colab CPU runtimes. All six notebooks’ default code paths passed sequential execution (74 code cells total). Published notebooks have cleared outputs and execution counts.
+Tutorials 01–06 were validated on **2026-10-09** and Tutorial 07 on **2026-10-10**, using Google Colab CPU runtimes. All seven notebooks’ default code paths passed sequential execution (85 code cells total). Published notebooks have cleared outputs and execution counts.
 
 ## How the checks were performed
 
@@ -26,6 +26,16 @@ Frozen-feature validation/test accuracy was 82%/90%; fine-tuned accuracy was 84%
 
 Observed time after imports was 75.34 seconds, including 13.50 seconds caching, 0.35 seconds head fitting, and 35.32 seconds fine-tuning. Timings are observations, not guarantees or energy measurements. Full mode and GPU execution remain untested.
 
+## Tutorial 07: detection, segmentation, and training verified
+
+All 11 exact published code-cell sources ran sequentially in a fresh Colab CPU runtime using the native `run_cell` harness. The downloaded verification notebook was checked against the published sources, contained no error outputs, and ended with `ALL_11_CELLS_PASSED`. This checks real Colab execution, including installation of pinned **Ultralytics 8.4.158**, but does not establish direct GitHub authorization or full notebook import. Its Python/PyTorch environment matches the versions listed below.
+
+The run downloaded YOLO11 nano detection and segmentation weights (5.4/5.9 MB) and COCO8. At image size 320, confidence 0.35, and NMS IoU 0.5, the bundled bus image produced four detections and four instance masks of shape `[4,1080,810]`. Coordinate/score bounds, original-resolution mask alignment, empty-result handling, unchanged background pixels, hand-computed IoU/NMS, and CSV/NPZ round trips all passed. Confidence cutoffs 0.2/0.5/0.8 yielded 5/4/3 instances at both tested NMS cutoffs; the synthetic overlapping-box example separately verified actual NMS suppression.
+
+Default `RUN_TRAINING=True` completed two epochs on four training and four validation images. Label audits and train/validation hash separation passed; training losses were finite; `best.pt` reloaded and produced valid detection output. Five figures were inspected: input/boxes/masks, binary mask, synthetic NMS, ground-truth annotations, and training losses. COCO8 comes from COCO training data, so these are pipeline checks, not independent generalization results; reported validation mAP is retained only as diagnostic evidence.
+
+The observed run took about 36 seconds including setup/imports; the notebook measured 18.28 seconds after imports and 10.22 seconds for training/checkpoint verification. These are not promised durations. A harmless config-directory warning caused Ultralytics to use `/tmp/Ultralytics`; execution and all exports succeeded. GPU, longer/custom-dataset training, segmentation training, and the optional training-skip branch were not separately tested.
+
 ## Recorded environment and results
 
 Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **2.1.3**, Pandas **2.2.3**, Matplotlib **3.10.0**. Tutorial 02 also used Seaborn **0.13.2** and Plotly **5.24.1**. Machine-learning runs used seed 42 and `QUICK_RUN=True`.
@@ -38,6 +48,7 @@ Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **
 | 04 | 10 | MNIST CNN test accuracy 92.2%; dense model 88.4%. Validation-selected CIFAR-10 Plain CNN: test accuracy 44.65% (baseline 10.2%). All five model runs completed. |
 | 05 | 16 | Ants/bees: validation accuracy 95%, test accuracy 93.33% on 60 test images (baseline 50%); both-class Grad-CAM, model reload, and ViT shape checks passed. |
 | 06 | 14 | Frozen features: test accuracy 90%; fine-tuned: 88% on 50 images (baseline 20%). All freezing, fine-tuning, and checkpoint assertions passed. |
+| 07 | 11 | Four detections/four masks; five figures inspected; IoU/NMS, coordinate/mask, empty-result, export, two-epoch training, and checkpoint inference checks passed. |
 
 These are observed teaching runs, not benchmark guarantees. In Tutorial 04, three epochs did not make the augmented model outperform the plain model. In Tutorial 05, the archive is an ImageNet subset and the feature extractor was pretrained on ImageNet: these results do not demonstrate independence from pretraining data or generalization to a new domain.
 
@@ -47,8 +58,8 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 ## Scope and remaining limits
 
-- CPU quick-mode code execution was tested for Tutorials 01–06. GPU execution and larger `QUICK_RUN=False` experiments were not tested.
-- All required packages were already installed in the tested Colab runtimes. Missing-package installation branches were reviewed, but were not exercised in a stripped runtime.
+- CPU quick-mode code execution was tested for Tutorials 01–07 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
+- Tutorials 01–06 found their required packages already installed. Tutorial 07 exercised its pinned Ultralytics installation in Colab. Other missing-package branches were not exhaustively tested in stripped runtimes.
 - Runtime data and trained weights are not committed. Notebook assertions check splits, shapes, finite values, or checkpoint equality where relevant.
 - Local notebook execution was not performed after the initial sandbox kernel restriction. Local package installation is not counted as runtime validation.
 - Colab resources, installed package versions, and upstream download availability can change. If a runtime has unrelated package modifications, start a fresh runtime before running the lesson.
@@ -57,4 +68,4 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 Open a lesson in Colab, connect to a fresh CPU runtime, and run cells in order. For a private repository, authorize access or upload the downloaded notebook. Save the final outputs and environment information, plus `outputs/tutorial_XX/metrics.json` (Tutorial 01 uses `energy_summary.json`). Test full/GPU/optional modes separately and record their settings.
 
-From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all six notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
+From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all seven notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
