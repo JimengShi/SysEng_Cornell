@@ -1,6 +1,6 @@
 # Colab validation report
 
-Tutorials 01–06 were validated on **2026-10-09** and Tutorial 07 on **2026-10-10**, using Google Colab CPU runtimes. All seven notebooks’ default code paths passed sequential execution (85 code cells total). Published notebooks have cleared outputs and execution counts.
+Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, and Tutorial 08 on **2026-10-11**, using Google Colab CPU runtimes. All eight notebooks’ default code paths passed sequential execution (96 code cells total). Published notebooks have cleared outputs and execution counts.
 
 ## How the checks were performed
 
@@ -36,6 +36,14 @@ Default `RUN_TRAINING=True` completed two epochs on four training and four valid
 
 The observed run took about 36 seconds including setup/imports; the notebook measured 18.28 seconds after imports and 10.22 seconds for training/checkpoint verification. These are not promised durations. A harmless config-directory warning caused Ultralytics to use `/tmp/Ultralytics`; execution and all exports succeeded. GPU, longer/custom-dataset training, segmentation training, and the optional training-skip branch were not separately tested.
 
+## Tutorial 08: text classification and Skip-gram verified
+
+All 11 exact published code-cell sources passed sequential execution using Colab's native `run_cell` harness on CPU. An initial fresh-runtime run downloaded the approximately 84 MB IMDb archive. After improving figure contrast and label placement, all cells were rerun in the same runtime with cached data. The final downloaded verification notebook matched the published sources exactly and contained no error outputs. Five rendered figures were inspected. This validates code execution, not direct private-GitHub authorization or full notebook import.
+
+Exact-text deduplication yielded 5,994/998/1,995 training/validation/test reviews. Training-only vocabulary and IDF, one-hot/embedding equivalence, padding invariance, empty input, disjoint paths, finite losses, word/vector TSV alignment, and CPU checkpoint reload checks passed. The masked-embedding classifier completed eight epochs; validation loss selected epoch 5. Test accuracy was 80.85% versus 84.21% for TF-IDF and 49.97% for the training-majority baseline. Validation log loss selected the neural model, even though TF-IDF had higher accuracy; these are different criteria.
+
+Skip-gram trained on 40,000 positive pairs sampled from 1,000 training reviews, using five noise samples and three epochs. Mean loss fell from 3.7249 to 2.4941. Many nearest neighbors remain poor: loss reduction and PCA plots do not demonstrate useful semantic representations. TSV exports contained 7,998 sentiment vectors and 4,194 observed Skip-gram target vectors. Full-data mode and GPU execution were not tested.
+
 ## Recorded environment and results
 
 Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **2.1.3**, Pandas **2.2.3**, Matplotlib **3.10.0**. Tutorial 02 also used Seaborn **0.13.2** and Plotly **5.24.1**. Machine-learning runs used seed 42 and `QUICK_RUN=True`.
@@ -49,6 +57,7 @@ Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **
 | 05 | 16 | Ants/bees: validation accuracy 95%, test accuracy 93.33% on 60 test images (baseline 50%); both-class Grad-CAM, model reload, and ViT shape checks passed. |
 | 06 | 14 | Frozen features: test accuracy 90%; fine-tuned: 88% on 50 images (baseline 20%). All freezing, fine-tuning, and checkpoint assertions passed. |
 | 07 | 11 | Four detections/four masks; five figures inspected; IoU/NMS, coordinate/mask, empty-result, export, two-epoch training, and checkpoint inference checks passed. |
+| 08 | 11 | IMDb neural/TF-IDF test accuracy 80.85%/84.21%; three Skip-gram epochs; five figures, padding, TSV, and checkpoint checks passed. |
 
 These are observed teaching runs, not benchmark guarantees. In Tutorial 04, three epochs did not make the augmented model outperform the plain model. In Tutorial 05, the archive is an ImageNet subset and the feature extractor was pretrained on ImageNet: these results do not demonstrate independence from pretraining data or generalization to a new domain.
 
@@ -58,8 +67,8 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 ## Scope and remaining limits
 
-- CPU quick-mode code execution was tested for Tutorials 01–07 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
-- Tutorials 01–06 found their required packages already installed. Tutorial 07 exercised its pinned Ultralytics installation in Colab. Other missing-package branches were not exhaustively tested in stripped runtimes.
+- CPU quick-mode code execution was tested for Tutorials 01–08 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
+- Tutorials 01–06 and 08 found their required packages already installed. Tutorial 07 exercised its pinned Ultralytics installation in Colab. Other missing-package branches were not exhaustively tested in stripped runtimes.
 - Runtime data and trained weights are not committed. Notebook assertions check splits, shapes, finite values, or checkpoint equality where relevant.
 - Local notebook execution was not performed after the initial sandbox kernel restriction. Local package installation is not counted as runtime validation.
 - Colab resources, installed package versions, and upstream download availability can change. If a runtime has unrelated package modifications, start a fresh runtime before running the lesson.
@@ -68,4 +77,4 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 Open a lesson in Colab, connect to a fresh CPU runtime, and run cells in order. For a private repository, authorize access or upload the downloaded notebook. Save the final outputs and environment information, plus `outputs/tutorial_XX/metrics.json` (Tutorial 01 uses `energy_summary.json`). Test full/GPU/optional modes separately and record their settings.
 
-From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all seven notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
+From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all eight notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
