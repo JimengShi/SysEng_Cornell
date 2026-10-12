@@ -1,6 +1,6 @@
 # Colab validation report
 
-Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, and Tutorials 08–10 on **2026-10-11**, using Google Colab CPU runtimes. All ten notebooks’ default code paths passed sequential execution (122 code cells total). Published notebooks have cleared outputs and execution counts.
+Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, Tutorials 08–10 on **2026-10-11**, and Tutorial 11 on **2026-10-12**, using Google Colab CPU runtimes. All eleven notebooks’ default code paths passed sequential execution (133 code cells total). Published notebooks have cleared outputs and execution counts.
 
 ## How the checks were performed
 
@@ -66,6 +66,18 @@ The 2D convolutional VAE used 6,000/1,000/1,000 statically binarized MNIST image
 
 The AAE trained on 2,000 images for two epochs and selected epoch 2 by validation reconstruction. Snapshot assertions verified shared-encoder updates and isolation of reconstruction, discriminator, and encoder-adversarial phases. Its prior samples remained unrecognizable; passing these checks establishes the update mechanism, not successful distribution matching. All five model checkpoints reloaded on CPU, and ECG CSV export and GIF frame-count checks passed.
 
+## Tutorial 11: GAN generation and translation verified
+
+All 11 exact published code-cell sources passed sequential execution in Colab CPU using native `run_cell`. The initial fresh runtime exercised automatic MNIST downloads. After improving the GAN generator, the final version was rerun in a restarted Python session using the cached dataset. The downloaded executed notebook matched all published code sources exactly, contained no error outputs, and ended with `ALL_11_CELLS_PASSED`. Twelve figures and initialization/middle/final frames of the 13-frame inline GIF were visually inspected. A subsequent Markdown-only addition describes these observed results; code was unchanged. No direct private-GitHub authorization or full-notebook import was tested. GPU and larger mode remain untested.
+
+The final configuration used 6,000/1,000/1,000 MNIST train/validation/test images, 12 DCGAN epochs, four paired epochs on 2,000 images, and four unpaired epochs with 1,000 disjoint source rows per domain. GAN and CycleGAN inference snapshots use the final epoch; the paired generator uses validation-selected epoch 4. These are simplified MNIST teaching architectures, not facades or horse/zebra reproductions.
+
+Checks verified discriminator/generator update isolation (including GAN batch-normalization buffers), detached fake images, gradients through the frozen discriminator, latent-only inversion with an unchanged generator, paired/unpaired update isolation, disjoint splits/domain pools, finite losses, logit/shape conventions, CSV/GIF round trips, and **all eight network CPU reloads**. Inference snapshots omit optimizer/RNG state and do not promise exact training resumption. Time after imports was 104.84 seconds on this runtime; this is not a promised duration.
+
+Fixed-noise samples had more varied but still fragmented digit-like strokes; no FID or class-coverage measure was computed. On one fixed held-out example, latent inversion reduced MSE from **0.3515 to 0.1159**. Paired test L1 was **0.1017**, compared with 0.3083 for the input-edge baseline and 0.3009 for the training-mean baseline. The patch discriminator scores were near-uniform; these comparisons do not isolate the adversarial term's benefit.
+
+The unpaired demonstration did not achieve clean contrast inversion: X→Y/Y→X target L1 was **1.2543/1.0198**, while cycle L1 was **0.1813/0.1365**. Checkerboard artifacts and incorrect contrast remained visible. Returning the input has target L1 1.8911; analytic contrast inversion has zero error by construction. This illustrates that a relatively small cycle error does not establish the intended translation. All errors above use the [-1,1] pixel scale; they are instructional diagnostics, not benchmark claims.
+
 ## Recorded environment and results
 
 Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **2.1.3**, Pandas **2.2.3**, Matplotlib **3.10.0**. Tutorial 02 also used Seaborn **0.13.2** and Plotly **5.24.1**. Machine-learning runs used seed 42 and `QUICK_RUN=True`.
@@ -82,6 +94,7 @@ Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **
 | 08 | 11 | IMDb neural/TF-IDF test accuracy 80.85%/84.21%; three Skip-gram epochs; five figures, padding, TSV, and checkpoint checks passed. |
 | 09 | 13 | Six Transformer epochs; test teacher-forced token accuracy 33.91%, greedy exact match 0%; causal/padding/EOS/CPU reload checks and five figures passed. |
 | 10 | 13 | Five model reloads; denoising MSE 0.03250 versus 0.05247 noisy input; VAE objective 188.17 nats/image; AAE update-isolation checks, ten figures, and seven-frame GIF passed. |
+| 11 | 11 | Twelve GAN epochs; latent inversion MSE 0.1159; paired test L1 0.1017; unpaired translation limitations recorded; eight reloads, 12 figures, and 13-frame GIF checked. |
 
 These are observed teaching runs, not benchmark guarantees. In Tutorial 04, three epochs did not make the augmented model outperform the plain model. In Tutorial 05, the archive is an ImageNet subset and the feature extractor was pretrained on ImageNet: these results do not demonstrate independence from pretraining data or generalization to a new domain.
 
@@ -91,8 +104,8 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 ## Scope and remaining limits
 
-- CPU quick-mode code execution was tested for Tutorials 01–10 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
-- Tutorials 01–06 and 08–10 found their required packages already installed. Tutorial 07 exercised its pinned Ultralytics installation in Colab. Other missing-package branches were not exhaustively tested in stripped runtimes.
+- CPU quick-mode code execution was tested for Tutorials 01–11 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
+- Tutorials 01–06 and 08–11 found their required packages already installed. Tutorial 07 exercised its pinned Ultralytics installation in Colab. Other missing-package branches were not exhaustively tested in stripped runtimes.
 - Runtime data and trained weights are not committed. Notebook assertions check splits, shapes, finite values, or checkpoint equality where relevant.
 - Local notebook execution was not performed after the initial sandbox kernel restriction. Local package installation is not counted as runtime validation.
 - Colab resources, installed package versions, and upstream download availability can change. If a runtime has unrelated package modifications, start a fresh runtime before running the lesson.
@@ -101,4 +114,4 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 Open a lesson in Colab, connect to a fresh CPU runtime, and run cells in order. For a private repository, authorize access or upload the downloaded notebook. Save the final outputs and environment information, plus `outputs/tutorial_XX/metrics.json` (Tutorial 01 uses `energy_summary.json`). Test full/GPU/optional modes separately and record their settings.
 
-From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all ten notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
+From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all eleven notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
