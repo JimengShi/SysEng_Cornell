@@ -1,6 +1,6 @@
 # Colab validation report
 
-Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, Tutorials 08–10 on **2026-10-11**, and Tutorial 11 on **2026-10-12**, using Google Colab CPU runtimes. All eleven notebooks’ default code paths passed sequential execution (133 code cells total). Published notebooks have cleared outputs and execution counts.
+Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, Tutorials 08–10 on **2026-10-11**, and Tutorials 11–12 on **2026-10-12**, using Google Colab CPU runtimes. All twelve notebooks’ default code paths passed sequential execution (143 code cells total). Published notebooks have cleared outputs and execution counts.
 
 ## How the checks were performed
 
@@ -78,6 +78,24 @@ Fixed-noise samples had more varied but still fragmented digit-like strokes; no 
 
 The unpaired demonstration did not achieve clean contrast inversion: X→Y/Y→X target L1 was **1.2543/1.0198**, while cycle L1 was **0.1813/0.1365**. Checkerboard artifacts and incorrect contrast remained visible. Returning the input has target L1 1.8911; analytic contrast inversion has zero error by construction. This illustrates that a relatively small cycle error does not establish the intended translation. All errors above use the [-1,1] pixel scale; they are instructional diagnostics, not benchmark claims.
 
+## Tutorial 12: discrete and continuous reinforcement learning verified
+
+All 10 exact published code-cell sources executed sequentially in a fresh Colab CPU runtime using native `run_cell`. The downloaded executed notebook matched the published code exactly, contained no error outputs, and ended with `ALL_10_CELLS_PASSED`. Seven figures and initialization/middle/final frames of two policy GIFs were inspected. Explanatory Markdown was subsequently added with these observed results; code did not change. Direct private-GitHub authorization/full notebook import, GPU, larger budgets, and repeated training seeds were not tested.
+
+Runtime used **Gymnasium 1.3.0**, Python 3.13.16, PyTorch 2.11.0+cpu, NumPy 2.1.3, Pandas 2.2.3, and Matplotlib 3.10.0. Default training budgets were 240 CartPole episodes (seed 42), 6,000 Pendulum steps (seed 43; 2,750 updates), and 4,000 materials steps (seed 44; 1,750 updates). Each policy used evaluation seeds 10000–10009; evaluation did not select checkpoints. Total time after imports was **55.00 seconds** on this runtime, not a promised duration.
+
+| Task | Trained policy return, mean ± sample SD | Random return, mean ± sample SD | Other baseline |
+|---|---:|---:|---|
+| CartPole-v1 | 352.8 ± 52.9 | 25.8 ± 14.1 | Initial greedy: 9.2 ± 0.8 |
+| Pendulum-v1 | −682.3 ± 230.9 | −1057.0 ± 251.9 | Zero torque: −1071.7 ± 325.0; initial actor: −1082.3 ± 307.4 |
+| Synthetic materials | −1.939 ± 0.577 | −26.422 ± 12.233 | No adjustment: −23.687 ± 11.321; analytic: −0.695 ± 0.613 |
+
+These statistics describe episode variability for one trained agent per task, not robustness across training seeds. CartPole improved substantially without establishing a solved-task claim. Pendulum control remained imperfect. The known-target analytic materials controller outperformed DDPG; this example demonstrates constrained numerical control, not real materials discovery. The materials trajectory approached a slightly offset composition while preserving the simplex.
+
+Termination versus truncation targets, detached actor advantages, replay wraparound/ending flags, DDPG parameter/gradient isolation, frozen targets and actor-target soft-update arithmetic, action bounds, finite losses, the Gymnasium custom-environment checker, and simplex invariants passed. All **nine network checkpoints reloaded on CPU** with matching probe outputs. The evaluation CSV contained 110 rows. Files are inference/inspection snapshots, not exact optimizer/replay/RNG resume states.
+
+RGB rendering worked without Xvfb. The first predetermined seed produced an 85-frame CartPole GIF (334 steps) and a 51-frame Pendulum GIF (200 steps); these are separate illustrative rollouts, not extra evaluation episodes. Pygame emitted a non-fatal `pkg_resources` deprecation warning; rendering and GIF readback passed. No Atari/DQN or PPO implementation is claimed: the upstream PyTorch lesson only listed them in its introductory outline, and this adaptation provides a conceptual comparison.
+
 ## Recorded environment and results
 
 Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **2.1.3**, Pandas **2.2.3**, Matplotlib **3.10.0**. Tutorial 02 also used Seaborn **0.13.2** and Plotly **5.24.1**. Machine-learning runs used seed 42 and `QUICK_RUN=True`.
@@ -95,6 +113,7 @@ Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **
 | 09 | 13 | Six Transformer epochs; test teacher-forced token accuracy 33.91%, greedy exact match 0%; causal/padding/EOS/CPU reload checks and five figures passed. |
 | 10 | 13 | Five model reloads; denoising MSE 0.03250 versus 0.05247 noisy input; VAE objective 188.17 nats/image; AAE update-isolation checks, ten figures, and seven-frame GIF passed. |
 | 11 | 11 | Twelve GAN epochs; latent inversion MSE 0.1159; paired test L1 0.1017; unpaired translation limitations recorded; eight reloads, 12 figures, and 13-frame GIF checked. |
+| 12 | 10 | CartPole mean return 352.8; Pendulum −682.3; synthetic materials −1.939; termination/replay/update checks, nine reloads, seven plots, and two policy GIFs passed. |
 
 These are observed teaching runs, not benchmark guarantees. In Tutorial 04, three epochs did not make the augmented model outperform the plain model. In Tutorial 05, the archive is an ImageNet subset and the feature extractor was pretrained on ImageNet: these results do not demonstrate independence from pretraining data or generalization to a new domain.
 
@@ -104,7 +123,7 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 ## Scope and remaining limits
 
-- CPU quick-mode code execution was tested for Tutorials 01–11 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
+- CPU quick-mode code execution was tested for Tutorials 01–12 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
 - Tutorials 01–06 and 08–11 found their required packages already installed. Tutorial 07 exercised its pinned Ultralytics installation in Colab. Other missing-package branches were not exhaustively tested in stripped runtimes.
 - Runtime data and trained weights are not committed. Notebook assertions check splits, shapes, finite values, or checkpoint equality where relevant.
 - Local notebook execution was not performed after the initial sandbox kernel restriction. Local package installation is not counted as runtime validation.
@@ -114,4 +133,4 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 Open a lesson in Colab, connect to a fresh CPU runtime, and run cells in order. For a private repository, authorize access or upload the downloaded notebook. Save the final outputs and environment information, plus `outputs/tutorial_XX/metrics.json` (Tutorial 01 uses `energy_summary.json`). Test full/GPU/optional modes separately and record their settings.
 
-From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all eleven notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
+From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all twelve notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.

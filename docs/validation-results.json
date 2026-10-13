@@ -1,6 +1,6 @@
 {
   "date": "2026-10-12",
-  "method": "Tutorials 01-04, 06, 07, 08, 09, 10, and 11: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
+  "method": "Tutorials 01-04, 06, 07, 08, 09, 10, 11, and 12: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
   "tutorials": {
     "01": {
       "code_sha256": "86ab29f78aa832219f3eb835864bb333f235267928bf708dfa4d6715f6fce601",
@@ -1033,6 +1033,186 @@
           "cycle_losses.png"
         ],
         "seconds_after_imports": 104.83731369899999
+      }
+    },
+    "12": {
+      "date": "2026-10-12",
+      "code_sha256": "629c3b73a42b3a0ffcbe432e47e18b17821d86e842c1bf7417b51b191e968cfa",
+      "code_cells": 10,
+      "status": "passed",
+      "method": "All exact published code cells executed sequentially in a fresh Colab CPU runtime with native run_cell. Downloaded executed notebook confirms exact source equality, no error outputs, and ALL_10_CELLS_PASSED. GPU, larger mode, and direct private-GitHub opening/full notebook import not tested. Seven plots and first/middle/last frames of both policy GIFs inspected. The final explanatory Markdown summarizes this run; code unchanged.",
+      "metrics": {
+        "environment": {
+          "python": "3.13.16",
+          "torch": "2.11.0+cpu",
+          "gymnasium": "1.3.0",
+          "numpy": "2.1.3",
+          "pandas": "2.2.3",
+          "matplotlib": "3.10.0",
+          "device": "cpu",
+          "seed": 42,
+          "quick_run": true
+        },
+        "cartpole_training_episodes": 240,
+        "evaluation_seeds": [
+          10000,
+          10001,
+          10002,
+          10003,
+          10004,
+          10005,
+          10006,
+          10007,
+          10008,
+          10009
+        ],
+        "evaluation": [
+          {
+            "task": "CartPole",
+            "policy": "Initial greedy",
+            "mean": 9.2,
+            "std": 0.7888106377466155,
+            "min": 8.0,
+            "max": 10.0
+          },
+          {
+            "task": "CartPole",
+            "policy": "Random",
+            "mean": 25.8,
+            "std": 14.069667926271594,
+            "min": 10.0,
+            "max": 50.0
+          },
+          {
+            "task": "CartPole",
+            "policy": "Trained greedy",
+            "mean": 352.8,
+            "std": 52.89990548195715,
+            "min": 281.0,
+            "max": 434.0
+          },
+          {
+            "task": "Materials",
+            "policy": "Analytic",
+            "mean": -0.6945041622966528,
+            "std": 0.6129068604095146,
+            "min": -1.5098338779062033,
+            "max": -0.011015579104423523
+          },
+          {
+            "task": "Materials",
+            "policy": "DDPG",
+            "mean": -1.9393374992534518,
+            "std": 0.5767674310846205,
+            "min": -2.7042101249098778,
+            "max": -1.3249950911849737
+          },
+          {
+            "task": "Materials",
+            "policy": "No adjustment",
+            "mean": -23.68650995194912,
+            "std": 11.320839117399018,
+            "min": -37.29364275932312,
+            "max": -7.6217904686927795
+          },
+          {
+            "task": "Materials",
+            "policy": "Random",
+            "mean": -26.42169235944748,
+            "std": 12.232649786364275,
+            "min": -45.49726074934006,
+            "max": -8.201979827135801
+          },
+          {
+            "task": "Pendulum",
+            "policy": "DDPG",
+            "mean": -682.2885732080662,
+            "std": 230.87287945687635,
+            "min": -884.4320514253164,
+            "max": -272.94997270428746
+          },
+          {
+            "task": "Pendulum",
+            "policy": "Initial",
+            "mean": -1082.2767041667928,
+            "std": 307.4120300736891,
+            "min": -1457.0119221710172,
+            "max": -610.6262893790762
+          },
+          {
+            "task": "Pendulum",
+            "policy": "Random",
+            "mean": -1056.9941313729876,
+            "std": 251.9116594028666,
+            "min": -1469.8897548438927,
+            "max": -754.5538842451989
+          },
+          {
+            "task": "Pendulum",
+            "policy": "Zero torque",
+            "mean": -1071.7347479522164,
+            "std": 324.9687622507526,
+            "min": -1456.320985624498,
+            "max": -512.7212782126157
+          }
+        ],
+        "ddpg": {
+          "pendulum": {
+            "steps": 6000,
+            "updates": 2750,
+            "replay_size": 6000
+          },
+          "materials": {
+            "steps": 4000,
+            "updates": 1750,
+            "replay_size": 4000
+          }
+        },
+        "animations": {
+          "cartpole": {
+            "seed": 10000,
+            "steps": 334,
+            "return": 334.0,
+            "gif_frames": 85
+          },
+          "pendulum": {
+            "seed": 10000,
+            "steps": 200,
+            "return": -273.02569486149923,
+            "gif_frames": 51
+          }
+        },
+        "checkpoint_reload": {
+          "cartpole_actor_critic": true,
+          "pendulum_actor": true,
+          "pendulum_critic": true,
+          "pendulum_actor_target": true,
+          "pendulum_critic_target": true,
+          "materials_actor": true,
+          "materials_critic": true,
+          "materials_actor_target": true,
+          "materials_critic_target": true
+        },
+        "checks": {
+          "termination_truncation_targets": true,
+          "actor_advantage_detached": true,
+          "replay_wraparound_and_flags": true,
+          "ddpg_isolation_and_soft_update_seed_43": true,
+          "materials_env_checker_and_simplex": true,
+          "ddpg_isolation_and_soft_update_seed_44": true,
+          "rgb_render_and_gif_roundtrip": true,
+          "evaluation_csv_roundtrip": true
+        },
+        "figures": [
+          "cartpole_evaluation.png",
+          "cartpole_training.png",
+          "pendulum_evaluation.png",
+          "pendulum_training.png",
+          "materials_evaluation.png",
+          "materials_training.png",
+          "materials_trajectory.png"
+        ],
+        "seconds_after_imports": 54.99861795300001
       }
     }
   }
