@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-12",
-  "method": "Tutorials 01-04, 06, 07, 08, 09, 10, 11, and 12: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
+  "date": "2026-10-13",
+  "method": "Tutorials 01-04, 06, 07, 08, 09, 10, 11, 12, and 13: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
   "tutorials": {
     "01": {
       "code_sha256": "86ab29f78aa832219f3eb835864bb333f235267928bf708dfa4d6715f6fce601",
@@ -1213,6 +1213,134 @@
           "materials_trajectory.png"
         ],
         "seconds_after_imports": 54.99861795300001
+      }
+    },
+    "13": {
+      "date": "2026-10-13",
+      "code_sha256": "79b445c4d4b82c75844bf2c348823c776d52e12032921c278144851b582d3fc9",
+      "code_cells": 10,
+      "status": "passed",
+      "method": "All exact published code cells executed sequentially in a fresh Colab CPU runtime with native run_cell. Downloaded executed notebook confirms exact source equality, no error outputs, and ALL_10_CELLS_PASSED. GPU, larger mode, and direct private-GitHub opening/full notebook import not tested. Six generated figures were visually inspected: messages/batch, Cora comparison/confusion, GIN comparison, molecule depictions, target distributions, and regression/baselines. Markdown-only observations were added after the run; code is unchanged.",
+      "metrics": {
+        "environment": {
+          "python": "3.13.16",
+          "torch": "2.11.0+cpu",
+          "pyg": "2.8.1",
+          "rdkit": "2026.09.1",
+          "numpy": "2.1.3",
+          "pandas": "2.2.3",
+          "matplotlib": "3.10.0",
+          "device": "cpu",
+          "quick_run": true,
+          "seed": 42
+        },
+        "checks": {
+          "manual_messages_and_batch_isolation": true,
+          "gcn_dense_sage_reference_gradients_equivariance": true,
+          "cora_masks_disjoint": true,
+          "graph_split_batch_equivalence_pooling_invariance": true,
+          "qm9_unique_smiles_disjoint_training_only_scaling": true,
+          "six_checkpoint_cpu_reload": true
+        },
+        "reloads": [
+          "cora_MLP",
+          "cora_GCN",
+          "cora_GraphSAGE",
+          "imdb_GIN-0",
+          "imdb_GIN-eps",
+          "qm9_GCN"
+        ],
+        "figures": [
+          "01_messages_and_batch.png",
+          "02_cora_comparison.png",
+          "03_gin_comparison.png",
+          "04_qm9_molecules.png",
+          "05_qm9_targets.png",
+          "06_qm9_regression.png"
+        ],
+        "cora": {
+          "results": [
+            {
+              "model": "MLP",
+              "selected_epoch": 113,
+              "val_loss": 1.3140978813171387,
+              "train_accuracy": 1.0,
+              "val_accuracy": 0.5799999833106995,
+              "test_accuracy": 0.5879999995231628
+            },
+            {
+              "model": "GCN",
+              "selected_epoch": 119,
+              "val_loss": 0.8832610845565796,
+              "train_accuracy": 0.9857142567634583,
+              "val_accuracy": 0.7820000052452087,
+              "test_accuracy": 0.8119999766349792
+            },
+            {
+              "model": "GraphSAGE",
+              "selected_epoch": 116,
+              "val_loss": 0.7066888213157654,
+              "train_accuracy": 1.0,
+              "val_accuracy": 0.7820000052452087,
+              "test_accuracy": 0.8080000281333923
+            }
+          ],
+          "test_majority_accuracy": 0.12999999523162842,
+          "selected_model": "GraphSAGE"
+        },
+        "imdb": {
+          "results": [
+            {
+              "model": "GIN-0",
+              "selected_epoch": 34,
+              "val_loss": 0.5161135792732239,
+              "test_accuracy": 0.6933333277702332
+            },
+            {
+              "model": "GIN-eps",
+              "selected_epoch": 31,
+              "val_loss": 0.4973963797092438,
+              "test_accuracy": 0.7066666483879089
+            }
+          ],
+          "test_majority_accuracy": 0.5,
+          "split_sizes": [
+            700,
+            150,
+            150
+          ]
+        },
+        "qm9": {
+          "results": [
+            {
+              "model": "Training mean",
+              "test_mae_D": 1.1964919567108154,
+              "test_rmse_D": 1.5277293920516968
+            },
+            {
+              "model": "Atom-count Ridge",
+              "test_mae_D": 1.0380520385267347,
+              "test_rmse_D": 1.3831593282328978
+            },
+            {
+              "model": "Molecular GCN",
+              "test_mae_D": 0.7632732391357422,
+              "test_rmse_D": 1.0746029615402222
+            }
+          ],
+          "split_sizes": [
+            2100,
+            450,
+            450
+          ],
+          "csv_sha256": "3e668f8c34e4bc392a90d417a50a5eed3b64b842a817a633024bdc054c68ccb4",
+          "invalid_smiles_skipped": 0,
+          "duplicates_skipped": 0,
+          "selected_epoch": 40,
+          "ridge_alpha": 0.1,
+          "validation_mae_D": 0.7745209336280823
+        },
+        "elapsed_seconds_after_imports": 46.333889881000005
       }
     }
   }

@@ -1,6 +1,6 @@
 # Deep Learning Tutorials · PyTorch on Colab
 
-Learn Python, data analysis, and neural networks through twelve self-contained notebooks. This independently maintained series adapts the [PEESE SYSEN 5888/6888 materials](https://github.com/PEESEgroup/SysEn6888) for Google Colab. Lessons are written in English; deep-learning examples use PyTorch.
+Learn Python, data analysis, and neural networks through thirteen self-contained notebooks. This independently maintained series adapts the [PEESE SYSEN 5888/6888 materials](https://github.com/PEESEgroup/SysEn6888) for Google Colab. Lessons are written in English; deep-learning examples use PyTorch.
 
 ## Start learning
 
@@ -20,11 +20,12 @@ Click a badge to open a notebook in Colab. No local Python installation or repos
 | **[10 · Autoencoders and VAEs](Tutorial_10_Generative_Modeling_VAE/README.md)** | Reconstruction, denoising, ECG anomaly scoring, VAE latent exploration, and shared-encoder adversarial training | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_10_Generative_Modeling_VAE/tutorial_10_pytorch.ipynb) |
 | **[11 · GANs and Image Translation](Tutorial_11_Generative_Modeling_GAN/README.md)** | DCGAN, fixed-noise animation, latent inversion, paired U-Net/PatchGAN, and unpaired cycle consistency | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_11_Generative_Modeling_GAN/tutorial_11_pytorch.ipynb) |
 | **[12 · Deep Reinforcement Learning](Tutorial_12_Deep_Reinforcement_Learning/README.md)** | CartPole actor–critic, Pendulum DDPG, constrained toy materials control, baselines, and policy animations | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_12_Deep_Reinforcement_Learning/tutorial_12_pytorch.ipynb) |
+| **[13 · Graph Neural Networks](Tutorial_13_Graph_Neural_Networks/README.md)** | Message passing, GCN/GraphSAGE on Cora, GIN graph classification, and QM9 dipole regression | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_13_Graph_Neural_Networks/tutorial_13_pytorch.ipynb) |
 
 1. Open a notebook and connect to a runtime. A CPU is sufficient for the default examples.
 2. Optionally choose **File → Save a copy in Drive** to keep your changes.
 3. Choose **Runtime → Run all**, or work through the cells in order. Setup cells install missing packages inside Colab.
-4. Read the explanations and try the exercises after the initial run. Each lesson can run independently; following 01 → 12 is recommended for beginners.
+4. Read the explanations and try the exercises after the initial run. Each lesson can run independently; following 01 → 13 is recommended for beginners.
 
 **Private-repository access:** This repository is currently private. Direct Colab links require repository access and GitHub authorization in Colab. “Notebook not found” may indicate missing authorization. Alternatively, download an `.ipynb` file from GitHub and use **File → Upload notebook** in Colab. The badges do not make a private repository publicly accessible.
 
@@ -43,9 +44,11 @@ Click a badge to open a notebook in Colab. No local Python installation or repos
 - **11:** MNIST (~12 MB), twelve compact DCGAN epochs, four paired edge-to-digit epochs, and four unpaired normal/inverted-digit epochs. Includes fixed-noise animation, latent interpolation/inversion, update-isolation checks, and eight inference checkpoint reloads.
 - **12:** Gymnasium classic control; 240 CartPole episodes, 6,000 Pendulum steps, and 4,000 synthetic materials steps. Includes independent evaluation seeds, seven plots, two policy GIFs, and nine network reloads. No dataset or Atari ROM download.
 
-For 03–06 and 08–12, `QUICK_RUN = True` is the default. Set it to `False` for larger experiments. `DEVICE_PREFERENCE = "auto"` uses a GPU when available and otherwise CPU; select `"cpu"` to force CPU. Downloads require internet access; no API key or Google Drive mount is required. Colab runtime files are temporary: download anything you want to keep from `outputs/tutorial_XX/` before disconnecting.
+- **13:** PyG/RDKit, Cora, IMDB-BINARY, and a roughly 30 MB QM9 CSV. Quick mode uses 120 Cora epochs per model, 35 IMDB epochs per GIN, and 45 regression epochs on 3,000 molecules. Includes message/batch diagrams, baselines, and six checkpoint reloads.
 
-The notebooks retain installed Colab packages and install only missing dependencies. They print their environment versions. All twelve default code paths passed sequential execution in Colab CPU runtimes. See [validation evidence and limits](docs/validation.md) for the exact tests performed; quick-mode results are teaching examples, not benchmark claims.
+For 03–06 and 08–13, `QUICK_RUN = True` is the default. Set it to `False` for larger experiments. `DEVICE_PREFERENCE = "auto"` uses a GPU when available and otherwise CPU; select `"cpu"` to force CPU. Downloads require internet access; no API key or Google Drive mount is required. Colab runtime files are temporary: download anything you want to keep from `outputs/tutorial_XX/` before disconnecting.
+
+The notebooks retain installed Colab packages and install only missing dependencies. They print their environment versions. All thirteen default code paths passed sequential execution in Colab CPU runtimes. See [validation evidence and limits](docs/validation.md) for the exact tests performed; quick-mode results are teaching examples, not benchmark claims.
 
 ## Teaching approach
 
@@ -58,4 +61,4 @@ Each lesson includes learning goals, explanations, runnable examples, interpreta
 
 Adapted from [PEESEgroup/SysEn6888](https://github.com/PEESEgroup/SysEn6888) at revision `0b326ded95e415d7a60660879aaa737e3c7d79ea`. The original MIT notice is preserved in [LICENSE](LICENSE). This is an independent adaptation, not an official replacement for the course repository. TensorFlow versions are outside this series' scope.
 
-Data and pretrained model sources are attributed in the notebooks. These include [UCI Auto MPG](https://doi.org/10.24432/C5859H), [Fashion-MNIST](https://github.com/zalandoresearch/fashion-mnist), MNIST, CIFAR-10, the PyTorch-hosted ants/bees archive, Google flower photos, ManyThings/Tatoeba bilingual pairs, the Google-hosted ECG CSV, COCO8, [Stanford IMDb](https://ai.stanford.edu/~amaas/data/sentiment/), torchvision model weights, and Ultralytics YOLO11 weights/example assets. The code license does not replace their respective terms. Datasets and model weights are downloaded from their sources and are not committed here.
+Data and pretrained model sources are attributed in the notebooks. These include [UCI Auto MPG](https://doi.org/10.24432/C5859H), [Fashion-MNIST](https://github.com/zalandoresearch/fashion-mnist), MNIST, CIFAR-10, the PyTorch-hosted ants/bees archive, Google flower photos, ManyThings/Tatoeba bilingual pairs, the Google-hosted ECG CSV, COCO8, [Stanford IMDb](https://ai.stanford.edu/~amaas/data/sentiment/), torchvision model weights, Ultralytics YOLO11 weights/example assets, Cora/Planetoid, TU IMDB-BINARY, and QM9 via DeepChem. The code license does not replace their respective terms. Datasets and model weights are downloaded from their sources and are not committed here.

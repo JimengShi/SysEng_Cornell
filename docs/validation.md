@@ -1,6 +1,6 @@
 # Colab validation report
 
-Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, Tutorials 08–10 on **2026-10-11**, and Tutorials 11–12 on **2026-10-12**, using Google Colab CPU runtimes. All twelve notebooks’ default code paths passed sequential execution (143 code cells total). Published notebooks have cleared outputs and execution counts.
+Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, Tutorials 08–10 on **2026-10-11**, Tutorials 11–12 on **2026-10-12**, and Tutorial 13 on **2026-10-13**, using Google Colab CPU runtimes. All thirteen notebooks’ default code paths passed sequential execution (153 code cells total). Published notebooks have cleared outputs and execution counts.
 
 ## How the checks were performed
 
@@ -96,6 +96,20 @@ Termination versus truncation targets, detached actor advantages, replay wraparo
 
 RGB rendering worked without Xvfb. The first predetermined seed produced an 85-frame CartPole GIF (334 steps) and a 51-frame Pendulum GIF (200 steps); these are separate illustrative rollouts, not extra evaluation episodes. Pygame emitted a non-fatal `pkg_resources` deprecation warning; rendering and GIF readback passed. No Atari/DQN or PPO implementation is claimed: the upstream PyTorch lesson only listed them in its introductory outline, and this adaptation provides a conceptual comparison.
 
+## Tutorial 13: graph learning and molecular regression verified
+
+All 10 exact published code-cell sources executed sequentially in a fresh Colab CPU runtime using native `run_cell`. The downloaded executed notebook matched every code source, had no error outputs, and ended with `ALL_10_CELLS_PASSED`. This verifies actual Colab execution, including package setup, automatic Cora/IMDB/QM9 downloads, model fitting, and six CPU checkpoint round trips. It does not verify private-GitHub authorization or full notebook import. Code was unchanged after execution; only explanatory Markdown was added.
+
+Environment: Python 3.13.16, PyTorch 2.11.0+cpu, PyG 2.8.1, RDKit 2026.09.1, NumPy 2.1.3, pandas 2.2.3, matplotlib 3.10.0. Quick mode used seed 42 on CPU. Runtime after imports was 46.33 seconds; this excludes setup and is not a duration guarantee.
+
+Manual neighbor sums (including an isolated node), disconnected mini-batches, GCN/dense equivalence, GraphSAGE/reference equivalence, finite gradients, node permutation equivariance, graph pooling invariance, batched/separate predictions, split separation, training-only normalization, and six checkpoint reloads all passed. Six rendered figures were inspected for content and layout: messages/batch adjacency, Cora curves/accuracy/confusion, IMDB curves/accuracy, molecular drawings, QM9 distributions, and regression parity/baselines.
+
+Cora used the public 140/500/1,000 node masks. After 120 epochs per model, validation-selected checkpoints yielded test accuracies **58.8% MLP, 81.2% GCN, and 80.8% GraphSAGE**. Validation loss selected GraphSAGE; its slightly lower test accuracy did not trigger reselection. The training-majority rule has a seven-way tie (20 labels per class); class ID 0 wins `argmax`, producing a 13% test baseline. This is a transductive experiment and does not demonstrate unseen-graph generalization.
+
+IMDB-BINARY used 700/150/150 stratified graphs and 35 epochs per model: **69.33% GIN-0 and 70.67% GIN-eps** test accuracy, versus 50% majority. Sum pooling caused large initial loss spikes before convergence. Graph IDs are disjoint, but isomorphic graphs across splits were not audited. One split/seed is not the upstream repeated cross-validation benchmark.
+
+QM9 used a roughly 30 MB DeepChem CSV and 3,000 seeded unique canonical SMILES (2,100/450/450); no invalid or duplicate SMILES were encountered in this selected subset. Only molecular structure enters features. Dipole target scaling was fitted on training molecules. The 45-epoch GCN selected epoch 40 by validation MAE (0.7745 D). Test MAE was **0.7633 D**, versus **1.0381 D** for validation-selected atom-count Ridge and **1.1965 D** for the training mean. The parity plot shows underestimation of rare high-dipole molecules. SMILES-derived graphs omit bond types and 3D geometry; random splits can share scaffolds. This is not a crystal-property, new-chemistry, or materials-discovery benchmark. GPU and larger mode remain untested.
+
 ## Recorded environment and results
 
 Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **2.1.3**, Pandas **2.2.3**, Matplotlib **3.10.0**. Tutorial 02 also used Seaborn **0.13.2** and Plotly **5.24.1**. Machine-learning runs used seed 42 and `QUICK_RUN=True`.
@@ -114,6 +128,7 @@ Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **
 | 10 | 13 | Five model reloads; denoising MSE 0.03250 versus 0.05247 noisy input; VAE objective 188.17 nats/image; AAE update-isolation checks, ten figures, and seven-frame GIF passed. |
 | 11 | 11 | Twelve GAN epochs; latent inversion MSE 0.1159; paired test L1 0.1017; unpaired translation limitations recorded; eight reloads, 12 figures, and 13-frame GIF checked. |
 | 12 | 10 | CartPole mean return 352.8; Pendulum −682.3; synthetic materials −1.939; termination/replay/update checks, nine reloads, seven plots, and two policy GIFs passed. |
+| 13 | 10 | Cora GCN/GraphSAGE 81.2%/80.8%; IMDB GIN 69.3%/70.7%; QM9 MAE 0.7633 D; six figures and six checkpoint reloads checked. |
 
 These are observed teaching runs, not benchmark guarantees. In Tutorial 04, three epochs did not make the augmented model outperform the plain model. In Tutorial 05, the archive is an ImageNet subset and the feature extractor was pretrained on ImageNet: these results do not demonstrate independence from pretraining data or generalization to a new domain.
 
@@ -123,7 +138,7 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 ## Scope and remaining limits
 
-- CPU quick-mode code execution was tested for Tutorials 01–12 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
+- CPU quick-mode code execution was tested for Tutorials 01–13 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
 - Tutorials 01–06 and 08–11 found their required packages already installed. Tutorial 07 exercised its pinned Ultralytics installation in Colab. Other missing-package branches were not exhaustively tested in stripped runtimes.
 - Runtime data and trained weights are not committed. Notebook assertions check splits, shapes, finite values, or checkpoint equality where relevant.
 - Local notebook execution was not performed after the initial sandbox kernel restriction. Local package installation is not counted as runtime validation.
@@ -131,6 +146,6 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 ## Reproduce
 
-Open a lesson in Colab, connect to a fresh CPU runtime, and run cells in order. For a private repository, authorize access or upload the downloaded notebook. Save the final outputs and environment information, plus `outputs/tutorial_XX/metrics.json` (Tutorial 01 uses `energy_summary.json`). Test full/GPU/optional modes separately and record their settings.
+Open a lesson in Colab, connect to a fresh CPU runtime, and run cells in order. For a private repository, authorize access or upload the downloaded notebook. Save the final outputs and environment information, plus the JSON summary in `outputs/tutorial_XX/` (Tutorial 01 uses `energy_summary.json`; Tutorial 13 uses `run_summary.json`). Test full/GPU/optional modes separately and record their settings.
 
-From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all twelve notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
+From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all thirteen notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
