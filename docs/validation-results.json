@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-13",
-  "method": "Tutorials 01-04, 06, 07, 08, 09, 10, 11, 12, and 13: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
+  "date": "2026-10-15",
+  "method": "Tutorials 01-04, 06, 07, 08, 09, 10, 11, 12, 13, and 14: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
   "tutorials": {
     "01": {
       "code_sha256": "86ab29f78aa832219f3eb835864bb333f235267928bf708dfa4d6715f6fce601",
@@ -1341,6 +1341,147 @@
           "validation_mae_D": 0.7745209336280823
         },
         "elapsed_seconds_after_imports": 46.333889881000005
+      }
+    },
+    "14": {
+      "date": "2026-10-15",
+      "code_sha256": "82d0100566d2c1b3fe4717a650e19f31189ed4463ba9cc972057aee315672c5d",
+      "code_cells": 9,
+      "status": "passed",
+      "method": "Exact code-cell sources executed sequentially in a fresh Colab CPU runtime using native run_cell. Rendered output retained with matching SOURCE_SHA256 and ALL_9_CELLS_PASSED; four rendered PNGs extracted from the output DOM and visually inspected. Browser notebook download did not produce an accessible file, so no downloaded executed-notebook comparison is claimed. Markdown observations were added after execution; code unchanged. Direct private-GitHub import, GPU, longer mode, paid APIs, and DSPy were not tested.",
+      "metrics": {
+        "environment": {
+          "python": "3.13.16",
+          "torch": "2.11.0+cpu",
+          "transformers": "5.18.0",
+          "rdkit": "2026.09.1",
+          "numpy": "2.1.3",
+          "pandas": "2.2.3",
+          "matplotlib": "3.10.0",
+          "device": "cpu",
+          "quick_run": true,
+          "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
+          "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+        },
+        "checks": {
+          "tool_values_schema_and_errors": true,
+          "single_token_allowed_actions": true,
+          "recovery_budget_unknown_action_and_evidence": true,
+          "disjoint_wording_frozen_selection_bounded_traces": true,
+          "config_tokenizer_trace_reload_and_evidence_replay": true
+        },
+        "figures": [
+          "01_molecules_and_tools.png",
+          "02_action_scores.png",
+          "03_agent_trace.png",
+          "04_prompt_and_test_results.png"
+        ],
+        "direct_answer": "2",
+        "direct_reference": {
+          "ok": true,
+          "tool": "hbd",
+          "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+          "value": 1.0,
+          "unit": "count",
+          "source": "RDKit 2026.09.1"
+        },
+        "direct_strict_numeric_match": false,
+        "selected_prompt": "examples",
+        "development_accuracy": {
+          "brief": 0.5,
+          "examples": 0.75
+        },
+        "test_cases": 8,
+        "test_metrics": {
+          "Routing": 0.5,
+          "End-to-end": 0.5
+        },
+        "test_records": [
+          {
+            "question": "How many groups can donate a hydrogen bond?",
+            "molecule": "glycine",
+            "target": "hbd",
+            "selected_tool": "mw",
+            "status": "answered",
+            "tool_calls": 3,
+            "routing_correct": false,
+            "end_to_end_correct": false
+          },
+          {
+            "question": "Report the hydrogen-bond donor count for this structure.",
+            "molecule": "water",
+            "target": "hbd",
+            "selected_tool": "hbd",
+            "status": "answered",
+            "tool_calls": 3,
+            "routing_correct": true,
+            "end_to_end_correct": true
+          },
+          {
+            "question": "How many groups can accept a hydrogen bond?",
+            "molecule": "aspirin",
+            "target": "hba",
+            "selected_tool": "mw",
+            "status": "answered",
+            "tool_calls": 3,
+            "routing_correct": false,
+            "end_to_end_correct": false
+          },
+          {
+            "question": "Report the hydrogen-bond acceptor count for this structure.",
+            "molecule": "ethanol",
+            "target": "hba",
+            "selected_tool": "hba",
+            "status": "answered",
+            "tool_calls": 3,
+            "routing_correct": true,
+            "end_to_end_correct": true
+          },
+          {
+            "question": "Find the average molecular mass in g/mol.",
+            "molecule": "caffeine",
+            "target": "mw",
+            "selected_tool": "mw",
+            "status": "answered",
+            "tool_calls": 3,
+            "routing_correct": true,
+            "end_to_end_correct": true
+          },
+          {
+            "question": "Report molecular weight for the given structure.",
+            "molecule": "benzene",
+            "target": "mw",
+            "selected_tool": "mw",
+            "status": "answered",
+            "tool_calls": 3,
+            "routing_correct": true,
+            "end_to_end_correct": true
+          },
+          {
+            "question": "Estimate the melting point in Celsius.",
+            "molecule": "water",
+            "target": "unsupported",
+            "selected_tool": "mw",
+            "status": "answered",
+            "tool_calls": 3,
+            "routing_correct": false,
+            "end_to_end_correct": false
+          },
+          {
+            "question": "Calculate both donor and acceptor counts.",
+            "molecule": "glycine",
+            "target": "unsupported",
+            "selected_tool": "hbd",
+            "status": "answered",
+            "tool_calls": 3,
+            "routing_correct": false,
+            "end_to_end_correct": false
+          }
+        ],
+        "model_routing_forward_calls": 27,
+        "live_demo_status": "answered",
+        "live_demo_steps": 3,
+        "elapsed_seconds_after_imports": 93.66422995599999
       }
     }
   }

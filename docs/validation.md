@@ -1,6 +1,6 @@
 # Colab validation report
 
-Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, Tutorials 08–10 on **2026-10-11**, Tutorials 11–12 on **2026-10-12**, and Tutorial 13 on **2026-10-13**, using Google Colab CPU runtimes. All thirteen notebooks’ default code paths passed sequential execution (153 code cells total). Published notebooks have cleared outputs and execution counts.
+Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, Tutorials 08–10 on **2026-10-11**, Tutorials 11–12 on **2026-10-12**, Tutorial 13 on **2026-10-13**, and Tutorial 14 on **2026-10-15**, using Google Colab CPU runtimes. All fourteen notebooks’ default code paths passed sequential execution (162 code cells total). Published notebooks have cleared outputs and execution counts.
 
 ## How the checks were performed
 
@@ -129,6 +129,7 @@ Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **
 | 11 | 11 | Twelve GAN epochs; latent inversion MSE 0.1159; paired test L1 0.1017; unpaired translation limitations recorded; eight reloads, 12 figures, and 13-frame GIF checked. |
 | 12 | 10 | CartPole mean return 352.8; Pendulum −682.3; synthetic materials −1.939; termination/replay/update checks, nine reloads, seven plots, and two policy GIFs passed. |
 | 13 | 10 | Cora GCN/GraphSAGE 81.2%/80.8%; IMDB GIN 69.3%/70.7%; QM9 MAE 0.7633 D; six figures and six checkpoint reloads checked. |
+| 14 | 9 | Real local Qwen model; 4/8 held-out accuracy with errors retained; tool/controller/reload checks passed; four figures inspected. |
 
 These are observed teaching runs, not benchmark guarantees. In Tutorial 04, three epochs did not make the augmented model outperform the plain model. In Tutorial 05, the archive is an ImageNet subset and the feature extractor was pretrained on ImageNet: these results do not demonstrate independence from pretraining data or generalization to a new domain.
 
@@ -136,9 +137,21 @@ CIFAR-10 downloading dominated Tutorial 04's approximately 22.6-minute recorded 
 
 The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYLE_TRANSFER=True`: 128 × 128 pixels, 40 optimization steps, finite losses throughout, and a loss decrease from 454,754.125 to 35,324.152. This branch was run separately after the core lesson. The saved Grad-CAM and style-transfer images were displayed in Colab and visually inspected.
 
+## Tutorial 14: local LLM agents verified, accuracy limits retained
+
+All nine exact code-cell sources completed sequentially in a fresh Colab CPU runtime using native `run_cell`. Rendered output was saved locally with matching source SHA-256 and `ALL_9_CELLS_PASSED`. The browser's notebook download did not produce an accessible file; therefore, unlike previous runs, no downloaded executed-notebook equality check is claimed. Four PNGs were extracted from the rendered output DOM and inspected: molecular structures/descriptors, action scores, the live recovery trace, and development/test accuracy. Published code was unchanged after execution; explanatory Markdown was added.
+
+Environment: Python 3.13.16, PyTorch 2.11.0+cpu, Transformers 5.18.0, RDKit 2026.09.1, NumPy 2.1.3, pandas 2.2.3, matplotlib 3.10.0. The public Qwen2.5-0.5B-Instruct checkpoint at `7ae557604adf67be50417f59c2c2f167def9a775` downloaded without a token; 494,032,768 parameters were loaded. The unauthenticated Hub warning and `torch_dtype` deprecation warning were nonfatal. The run used 27 actual routing forward passes and one direct generated answer; 93.66 seconds elapsed after imports, including model download/loading.
+
+The direct model answer for aspirin's HBD count was **2**; RDKit returned **1**. The live agent selected HBD and completed the three-call invalid-SMILES → name resolution → descriptor recovery path. Tool schema/value/error checks, six controller fault checks, bounded traces, disjoint development/test wording, configuration and tokenizer reloads, trace JSON round trip, and descriptor evidence replay passed. Recovery is programmed controller behavior; test fixtures are explicitly separated from real LLM evaluations. This is not a model-weight reload test.
+
+Two fixed prompts scored **4/8** and **6/8** on development questions. The latter was selected without test feedback; held-out routing and end-to-end accuracy were both **4/8 (50%)**. Donor/acceptor paraphrases were misrouted to molecular weight, and both unsupported questions received unrelated descriptors. These errors are retained without tuning on the held-out set. Successful descriptor calculation does not establish correct intent recognition or reliable abstention. The notebook explains RDKit-specific descriptor conventions, including standalone water's 0/0 counts in these functions.
+
+No paid API, DSPy/GSM8K experiment, external chemistry resolver, GPU execution, longer-generation mode, private-GitHub import, or autonomous laboratory behavior is claimed. The small catalogue, two prompts, and hand-written cases are teaching examples, not broad reliability evidence.
+
 ## Scope and remaining limits
 
-- CPU quick-mode code execution was tested for Tutorials 01–13 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
+- CPU quick-mode code execution was tested for Tutorials 01–14 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
 - Tutorials 01–06 and 08–11 found their required packages already installed. Tutorial 07 exercised its pinned Ultralytics installation in Colab. Other missing-package branches were not exhaustively tested in stripped runtimes.
 - Runtime data and trained weights are not committed. Notebook assertions check splits, shapes, finite values, or checkpoint equality where relevant.
 - Local notebook execution was not performed after the initial sandbox kernel restriction. Local package installation is not counted as runtime validation.
@@ -148,4 +161,4 @@ The optional Tutorial 05 style-transfer branch also passed on CPU with `RUN_STYL
 
 Open a lesson in Colab, connect to a fresh CPU runtime, and run cells in order. For a private repository, authorize access or upload the downloaded notebook. Save the final outputs and environment information, plus the JSON summary in `outputs/tutorial_XX/` (Tutorial 01 uses `energy_summary.json`; Tutorial 13 uses `run_summary.json`). Test full/GPU/optional modes separately and record their settings.
 
-From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all thirteen notebooks' schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
+From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all fourteen notebooks for schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
