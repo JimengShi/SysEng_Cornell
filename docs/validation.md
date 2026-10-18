@@ -1,6 +1,6 @@
 # Colab validation report
 
-Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, Tutorials 08–10 on **2026-10-11**, Tutorials 11–12 on **2026-10-12**, Tutorial 13 on **2026-10-13**, and Tutorial 14 on **2026-10-15**, using Google Colab CPU runtimes. All fourteen notebooks’ default code paths passed sequential execution (162 code cells total). Published notebooks have cleared outputs and execution counts.
+Tutorials 01–06 were validated on **2026-10-09**, Tutorial 07 on **2026-10-10**, Tutorials 08–10 on **2026-10-11**, Tutorials 11–12 on **2026-10-12**, Tutorial 13 on **2026-10-13**, Tutorial 14 on **2026-10-15**, and Tutorial 15 on **2026-10-18**, using Google Colab CPU runtimes. All fifteen notebooks’ default code paths passed sequential execution (171 code cells total). Published notebooks have cleared outputs and execution counts.
 
 ## How the checks were performed
 
@@ -130,6 +130,7 @@ Python **3.13.16**, PyTorch **2.11.0+cpu**, torchvision **0.26.0+cpu**, NumPy **
 | 12 | 10 | CartPole mean return 352.8; Pendulum −682.3; synthetic materials −1.939; termination/replay/update checks, nine reloads, seven plots, and two policy GIFs passed. |
 | 13 | 10 | Cora GCN/GraphSAGE 81.2%/80.8%; IMDB GIN 69.3%/70.7%; QM9 MAE 0.7633 D; six figures and six checkpoint reloads checked. |
 | 14 | 9 | Real local Qwen model; 4/8 held-out accuracy with errors retained; tool/controller/reload checks passed; four figures inspected. |
+| 15 | 9 | Dense/TF-IDF Hit@1 7/8 and 6/8; generation content probe 1/4, valid citation IDs 0/4, exact abstention 1/2; index checks and four figures inspected. |
 
 These are observed teaching runs, not benchmark guarantees. In Tutorial 04, three epochs did not make the augmented model outperform the plain model. In Tutorial 05, the archive is an ImageNet subset and the feature extractor was pretrained on ImageNet: these results do not demonstrate independence from pretraining data or generalization to a new domain.
 
@@ -149,9 +150,23 @@ Two fixed prompts scored **4/8** and **6/8** on development questions. The latte
 
 No paid API, DSPy/GSM8K experiment, external chemistry resolver, GPU execution, longer-generation mode, private-GitHub import, or autonomous laboratory behavior is claimed. The small catalogue, two prompts, and hand-written cases are teaching examples, not broad reliability evidence.
 
+## Tutorial 15: RAG execution verified, generation failures retained
+
+All nine exact code-cell sources completed sequentially in a fresh Colab CPU runtime with native `run_cell`. Rendered output contained matching SHA-256 `17d55538ec67b6e65113205a44b8fa3f15e14773a76f041b93cfca2354b16fe8` and `ALL_9_CELLS_PASSED`. Four rendered PNGs were extracted and inspected: chunk boundaries/lengths, embedding similarities, retrieval comparison, and generation diagnostics. No downloaded executed-notebook equality or direct private-GitHub import check is claimed. Only explanatory Markdown was added after execution.
+
+Environment: Python 3.13.16, PyTorch 2.11.0+cpu, Transformers 5.18.0, NumPy 2.1.3, pandas 2.2.3, matplotlib 3.10.0. Default CPU quick mode downloaded the pinned MiniLM and Qwen public checkpoints without a token. The Hub unauthenticated-access and `torch_dtype` deprecation warnings were nonfatal. Nine actual generation calls completed; time after imports, including downloads, was 91.99 seconds, not a duration guarantee.
+
+Twelve documents (eleven embedded notes/fictional materials records and one live article) produced 97 chunks and a 97 × 384 dense index. Source text SHA-256 was `c0ffaa16be6c28865a87fa896593249f9067a02b57ee87d528acd4262bbc08bf`. One chunk was truncated at the embedding tokenizer's 256-token limit; full text remained in the stored chunk. Offset coverage, unique IDs, normalized embeddings, padding equivalence, metadata filters, empty-result/no-model-call policy, JSON/vector/manifest round trips, ranking equality, and modified-chunk detection passed. These checks do not establish semantic correctness or model-weight reload.
+
+Eight fixed retrieval questions yielded dense Hit@1 **7/8**, Hit@3 **8/8**, and mean reciprocal rank within three **0.9375**; TF-IDF yielded **6/8**, **8/8**, and **0.875**. Explicit kind filters were supplied by the evaluation harness; no automatic query analysis is claimed. Dense retrieval put the 300 K record first for the 100 K question. No parameters were retuned on these diagnostics.
+
+The initial no-context answer was `NO_EVIDENCE`; RAG returned the correct fictional 300 K gap, 1.73 eV, but omitted a citation. Across four additional answerable questions, the content substring probe passed **1/4** and valid supplied citation IDs **0/4**. The generator invented 1.85 eV instead of the 100 K value 1.91 eV, returned `[17]` for a duration, and `[chunk_id] M5_0` for an atmosphere. Uncertainty 0.06 eV was reproduced correctly. Two missing-property questions produced **1/2 exact abstentions**; the other included `NO_EVIDENCE` after malformed citation text, so it attempted abstention but failed the strict format check. All raw outputs are retained in the machine-readable record. The blog answer has no automatic correctness label.
+
+This is a pipeline teaching demonstration with a small local generator, not reliable scientific QA. Materials values are explicitly synthetic. No paid calls, LangGraph/LangSmith, asynchronous/token streaming, model query rewriting, GPU, longer-generation, or prompt-injection-resistance result is claimed. The live article and pretrained weights are fetched at runtime, not committed.
+
 ## Scope and remaining limits
 
-- CPU quick-mode code execution was tested for Tutorials 01–14 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
+- CPU quick-mode code execution was tested for Tutorials 01–15 (Tutorial 07 includes its default two-epoch smoke test). GPU execution and larger `QUICK_RUN=False` experiments were not tested.
 - Tutorials 01–06 and 08–11 found their required packages already installed. Tutorial 07 exercised its pinned Ultralytics installation in Colab. Other missing-package branches were not exhaustively tested in stripped runtimes.
 - Runtime data and trained weights are not committed. Notebook assertions check splits, shapes, finite values, or checkpoint equality where relevant.
 - Local notebook execution was not performed after the initial sandbox kernel restriction. Local package installation is not counted as runtime validation.
@@ -161,4 +176,4 @@ No paid API, DSPy/GSM8K experiment, external chemistry resolver, GPU execution, 
 
 Open a lesson in Colab, connect to a fresh CPU runtime, and run cells in order. For a private repository, authorize access or upload the downloaded notebook. Save the final outputs and environment information, plus the JSON summary in `outputs/tutorial_XX/` (Tutorial 01 uses `energy_summary.json`; Tutorial 13 uses `run_summary.json`). Test full/GPU/optional modes separately and record their settings.
 
-From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all fourteen notebooks for schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.
+From a local environment containing `nbformat` and IPython, `python scripts/check_notebooks.py` checks all fifteen notebooks for schema, unique IDs, cleared outputs, Python/IPython syntax, and Colab targets without starting kernels. The optional `scripts/validate_tutorial03.py --execute --cpu` runner executes Tutorial 03 in a fresh local kernel and saves results under `.validation/`; this was not the method used for the Colab results above.

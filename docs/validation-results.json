@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-15",
-  "method": "Tutorials 01-04, 06, 07, 08, 09, 10, 11, 12, 13, and 14: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
+  "date": "2026-10-18",
+  "method": "Tutorials 01-04, 06, 07, 08, 09, 10, 11, 12, 13, 14, and 15: sequential exact-source code-cell execution in Colab using native run_cell. Tutorial 05: full notebook Run all in a fresh Colab CPU runtime; see per-tutorial method.",
   "tutorials": {
     "01": {
       "code_sha256": "86ab29f78aa832219f3eb835864bb333f235267928bf708dfa4d6715f6fce601",
@@ -1482,6 +1482,118 @@
         "live_demo_status": "answered",
         "live_demo_steps": 3,
         "elapsed_seconds_after_imports": 93.66422995599999
+      }
+    },
+    "15": {
+      "date": "2026-10-18",
+      "code_sha256": "17d55538ec67b6e65113205a44b8fa3f15e14773a76f041b93cfca2354b16fe8",
+      "code_cells": 9,
+      "status": "passed",
+      "method": "Exact published code-cell sources executed sequentially in a fresh Colab CPU runtime using native run_cell. Rendered output retained with matching SOURCE_SHA256 and ALL_9_CELLS_PASSED. Four PNGs extracted from the rendered output DOM and visually inspected. No downloaded executed-notebook comparison or direct private-GitHub import claimed. Markdown observations added after execution; code unchanged. GPU, longer mode, paid APIs, LangGraph/LangSmith, token streaming, and query rewriting not tested.",
+      "metrics": {
+        "environment": {
+          "python": "3.13.16",
+          "torch": "2.11.0+cpu",
+          "transformers": "5.18.0",
+          "numpy": "2.1.3",
+          "pandas": "2.2.3",
+          "matplotlib": "3.10.0",
+          "device": "cpu",
+          "quick_run": true,
+          "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+          "embedding_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+          "generator": "Qwen/Qwen2.5-0.5B-Instruct",
+          "generator_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+        },
+        "checks": {
+          "offsets_coverage_unique_ids": true,
+          "embedding_norm_padding_and_filters": true,
+          "empty_filter_no_generation": true,
+          "index_manifest_rank_reload_and_tamper_detection": true
+        },
+        "figures": [
+          "01_chunk_boundaries.png",
+          "02_embedding_similarity.png",
+          "03_retrieval_metrics.png",
+          "04_generation_diagnostics.png"
+        ],
+        "documents": 12,
+        "chunks": 97,
+        "web_sha256": "c0ffaa16be6c28865a87fa896593249f9067a02b57ee87d528acd4262bbc08bf",
+        "embedding_truncated_chunks": 1,
+        "retrieval_queries": 8,
+        "retrieval_metrics": {
+          "dense": {
+            "hit1": 0.875,
+            "hit3": 1.0,
+            "rr3": 0.9375
+          },
+          "tfidf": {
+            "hit1": 0.75,
+            "hit3": 1.0,
+            "rr3": 0.875
+          }
+        },
+        "generation_metrics": {
+          "content_probe_4": 1,
+          "citation_ids_valid_4": 0,
+          "exact_abstention_2": 1
+        },
+        "generation_records": [
+          {
+            "question": "What is Cerulean-A's optical band gap at 100 K in the fictional records?",
+            "answer": "1.85 eV",
+            "answerable": true,
+            "content_probe": false,
+            "exact_abstention": false,
+            "citation_ids_valid": false
+          },
+          {
+            "question": "What measurement uncertainty accompanies Amber-B's optical gap at 300 K?",
+            "answer": "0.06 eV",
+            "answerable": true,
+            "content_probe": true,
+            "exact_abstention": false,
+            "citation_ids_valid": false
+          },
+          {
+            "question": "For how many minutes was Cerulean-A annealed?",
+            "answer": "[17]",
+            "answerable": true,
+            "content_probe": false,
+            "exact_abstention": false,
+            "citation_ids_valid": false
+          },
+          {
+            "question": "In which atmosphere was Amber-B annealed?",
+            "answer": "[chunk_id] M5_0",
+            "answerable": true,
+            "content_probe": false,
+            "exact_abstention": false,
+            "citation_ids_valid": false
+          },
+          {
+            "question": "What is Amber-B's melting temperature?",
+            "answer": "[chunk_id] M5_0\n\nNO_EVIDENCE",
+            "answerable": false,
+            "content_probe": null,
+            "exact_abstention": false,
+            "citation_ids_valid": false
+          },
+          {
+            "question": "What is Cerulean-A's long-term stability lifetime?",
+            "answer": "NO_EVIDENCE",
+            "answerable": false,
+            "content_probe": null,
+            "exact_abstention": true,
+            "citation_ids_valid": false
+          }
+        ],
+        "without_retrieval": "NO_EVIDENCE",
+        "example_rag_answer": "Cerulean-A's band gap at 300 K is 1.73 eV.",
+        "web_answer": "Task decomposition is transforming big tasks into multiple manageable tasks and shedding light into an interpretation of the model's thinking process.",
+        "generation_calls": 9,
+        "elapsed_seconds_after_imports": 91.98715946099992
       }
     }
   }
