@@ -1,4 +1,4 @@
-# Tutorial 14 · LLM-Based Agents
+# Tutorial 14 LLM-Based Agents
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_14_LLM_based_Agent/tutorial_14_pytorch.ipynb)
 
@@ -24,4 +24,4 @@ This is a constrained LLM router with a programmed controller, not an autonomous
 
 Output files go to `outputs/tutorial_14/`. Download them before Colab disconnects. See [validation evidence](../docs/validation.md).
 
-Adapted from [PEESE Tutorial 14](https://github.com/PEESEgroup/SysEn6888/tree/0b326ded95e415d7a60660879aaa737e3c7d79ea/Tutorial_14_LLM_based_Agent); the MIT notice remains in [LICENSE](../LICENSE). The model and dependencies retain their own licenses.
+License information is available in the repository LICENSE. The model and dependencies retain their own licenses.

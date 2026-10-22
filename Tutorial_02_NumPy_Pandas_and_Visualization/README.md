@@ -1,4 +1,4 @@
-# Tutorial 02 · NumPy, Pandas, and Visualization
+# Tutorial 02 NumPy, Pandas, and Visualization
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_02_NumPy_Pandas_and_Visualization/tutorial_02_data.ipynb)
 
@@ -10,4 +10,4 @@ Basic Python is helpful. The cleaning example removes one duplicate and two rows
 
 While the repository is private, direct Colab opening requires repository access and GitHub authorization. Downloading the notebook and uploading it to Colab is an alternative. See the [series README](../README.md) and [validation report](../docs/validation.md).
 
-Adapted from the corresponding PEESE SYSEN tutorial under the repository MIT license; source and data references are included in the notebook.
+See the notebook for data references and the repository LICENSE for license information.

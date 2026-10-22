@@ -1,4 +1,4 @@
-# Tutorial 12 · Deep Reinforcement Learning
+# Tutorial 12 Deep Reinforcement Learning
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_12_Deep_Reinforcement_Learning/tutorial_12_pytorch.ipynb)
 
@@ -19,4 +19,4 @@ Short runs verify algorithms and interfaces; they do not guarantee solved enviro
 
 Outputs are saved in `outputs/tutorial_12/`. Checkpoints are for inference/inspection rather than exact training resumption. See [validation evidence and tested modes](../docs/validation.md).
 
-Adapted from [PEESE Tutorial 12](https://github.com/PEESEgroup/SysEn6888/tree/0b326ded95e415d7a60660879aaa737e3c7d79ea/Tutorial_12_Deep_Reinforcement_Learning); attribution is retained in [LICENSE](../LICENSE).
+License information is available in the repository LICENSE.

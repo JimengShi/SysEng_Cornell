@@ -1,4 +1,4 @@
-# Tutorial 01 · Colab and Python Basics
+# Tutorial 01 Colab and Python Basics
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_01_Colab_and_Python_Basics/tutorial_01_python.ipynb)
 
@@ -10,4 +10,4 @@ Start here if you are new to Python or notebooks. Expected results include a syn
 
 While the repository is private, direct Colab opening requires repository access and GitHub authorization. Downloading the notebook and uploading it to Colab is an alternative. See the [series README](../README.md) and [validation report](../docs/validation.md).
 
-Adapted from the corresponding PEESE SYSEN tutorial under the repository MIT license; source and data references are included in the notebook.
+See the notebook for data references and the repository LICENSE for license information.

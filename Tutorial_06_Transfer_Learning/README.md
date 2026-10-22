@@ -1,4 +1,4 @@
-# Tutorial 06 · Transfer Learning
+# Tutorial 06 Transfer Learning
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_06_Transfer_Learning/tutorial_06_pytorch.ipynb)
 
@@ -12,4 +12,4 @@ Train a five-class flower classifier, then continue fine-tuning the final two Mo
 
 The notebook also explains residual connections, epochs versus steps, correct binary/multiclass decoding, pretrained ImageNet inference, and why `eval()` differs from parameter freezing. Fine-tuning keeps the learned head, uses smaller learning rates, recomputes features from images, and selects checkpoints using validation loss (including epoch zero).
 
-[Series README](../README.md) · [Validation report](../docs/validation.md). While the repository is private, direct opening requires access; downloading and uploading the notebook to Colab is an alternative. Adapted from PEESE Tutorial 06 under the repository MIT license; dataset terms are separate and retained in the download.
+[Series README](../README.md) · [Validation report](../docs/validation.md). While the repository is private, direct opening requires access; downloading and uploading the notebook to Colab is an alternative. Dataset terms are separate and retained in the download.

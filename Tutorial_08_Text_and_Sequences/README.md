@@ -1,4 +1,4 @@
-# Tutorial 08 · Text, Sentiment, and Word Embeddings
+# Tutorial 08 Text, Sentiment, and Word Embeddings
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_08_Text_and_Sequences/tutorial_08_pytorch.ipynb)
 

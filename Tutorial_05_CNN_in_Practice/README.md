@@ -1,4 +1,4 @@
-# Tutorial 05 · CNNs in Practice
+# Tutorial 05 CNNs in Practice
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_05_CNN_in_Practice/tutorial_05_cnn_practice.ipynb)
 
@@ -12,4 +12,4 @@ Basic CNN concepts (Tutorial 04) are helpful. The core lesson trains a new class
 
 While the repository is private, direct Colab opening requires repository access and GitHub authorization. Downloading the notebook and uploading it to Colab is an alternative. See the [series README](../README.md) and [validation report](../docs/validation.md).
 
-Adapted from the corresponding PEESE SYSEN tutorial under the repository MIT license; source and data references are included in the notebook.
+See the notebook for data references and the repository LICENSE for license information.

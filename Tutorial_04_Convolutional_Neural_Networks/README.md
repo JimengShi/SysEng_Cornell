@@ -1,4 +1,4 @@
-# Tutorial 04 · Convolutional Neural Networks
+# Tutorial 04 Convolutional Neural Networks
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_04_Convolutional_Neural_Networks/tutorial_04_cnn.ipynb)
 
@@ -10,4 +10,4 @@ Basic PyTorch training (Tutorial 03) is helpful. Quick mode trains two models on
 
 While the repository is private, direct Colab opening requires repository access and GitHub authorization. Downloading the notebook and uploading it to Colab is an alternative. See the [series README](../README.md) and [validation report](../docs/validation.md).
 
-Adapted from the corresponding PEESE SYSEN tutorial under the repository MIT license; source and data references are included in the notebook.
+See the notebook for data references and the repository LICENSE for license information.

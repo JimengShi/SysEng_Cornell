@@ -1,4 +1,4 @@
-# Tutorial 15 · Retrieval-Augmented Generation
+# Tutorial 15 Retrieval-Augmented Generation
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_15_Retrieval_Augmented_Generation/tutorial_15_pytorch.ipynb)
 
@@ -26,4 +26,4 @@ This adaptation replaces paid upstream API calls with local models and uses plai
 
 Download `outputs/tutorial_15/` before disconnecting. It contains plots, chunk metadata, vectors, the manifest, raw answers, diagnostic CSVs, and `run_summary.json`. Source-document and model licenses remain separate from the code license. See [validation evidence](../docs/validation.md).
 
-Adapted from [PEESE Tutorial 15](https://github.com/PEESEgroup/SysEn6888/tree/0b326ded95e415d7a60660879aaa737e3c7d79ea/Tutorial_15_Retrieval_Augmented_Generation); upstream MIT notice retained in [LICENSE](../LICENSE).
+License information is available in the repository LICENSE.

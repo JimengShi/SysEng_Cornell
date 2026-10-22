@@ -1,4 +1,4 @@
-# Tutorial 13 · Graph Neural Networks
+# Tutorial 13 Graph Neural Networks
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_13_Graph_Neural_Networks/tutorial_13_pytorch.ipynb)
 
@@ -21,4 +21,4 @@ This is one seeded teaching experiment. Cora is transductive; IMDB graph IDs are
 
 Save files from `outputs/tutorial_13/` before Colab disconnects. See [validation evidence](../docs/validation.md) for actual runtime checks and their limits.
 
-Adapted from [PEESE Tutorial 13](https://github.com/PEESEgroup/SysEn6888/tree/0b326ded95e415d7a60660879aaa737e3c7d79ea/Tutorial_13_Graph_Neural_Networks). The upstream MIT notice is retained in [LICENSE](../LICENSE); datasets and dependencies retain their own terms.
+License information is available in the repository LICENSE. Datasets and dependencies retain their own terms.

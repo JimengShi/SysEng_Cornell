@@ -1,4 +1,4 @@
-# Tutorial 10 · Autoencoders and VAEs
+# Tutorial 10 Autoencoders and VAEs
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_10_Generative_Modeling_VAE/tutorial_10_pytorch.ipynb)
 

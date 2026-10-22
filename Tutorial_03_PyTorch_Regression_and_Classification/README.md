@@ -1,4 +1,4 @@
-# Tutorial 03 · Regression and Classification
+# Tutorial 03 Regression and Classification
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_03_PyTorch_Regression_and_Classification/tutorial_03_pytorch.ipynb)
 
@@ -44,4 +44,4 @@ The validation script is provided to execute all cells in order in a fresh Jupyt
 - Added CPU/CUDA device handling, seeded small-data mode, verified HTTPS downloads, error analysis, exercises, and preprocessing-aware checkpoints.
 - Corrected explanations about one-hot encoding, standardization, and classification probabilities.
 
-Original material: [PEESE Tutorial 03](https://github.com/PEESEgroup/SysEn6888/tree/0b326ded95e415d7a60660879aaa737e3c7d79ea/Tutorial_03_PyTorch_and_TensorFlow_Introduction), MIT licensed. See the notebook for dataset and documentation references.
+See the notebook for dataset and documentation references.

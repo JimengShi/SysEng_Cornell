@@ -1,4 +1,4 @@
-# Tutorial 07 · Object Detection and Instance Segmentation
+# Tutorial 07 Object Detection and Instance Segmentation
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_07_Object_Detection_and_Segmentation/tutorial_07_pytorch.ipynb)
 

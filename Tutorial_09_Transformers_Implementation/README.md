@@ -1,4 +1,4 @@
-# Tutorial 09 · Encoder–Decoder Transformers
+# Tutorial 09 Encoder–Decoder Transformers
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_09_Transformers_Implementation/tutorial_09_pytorch.ipynb)
 

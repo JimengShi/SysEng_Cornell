@@ -1,4 +1,4 @@
-# Tutorial 11 · GANs: Generation and Image Translation
+# Tutorial 11 GANs: Generation and Image Translation
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JimengShi/SysEng_Cornell/blob/main/Tutorial_11_Generative_Modeling_GAN/tutorial_11_pytorch.ipynb)
 
@@ -20,4 +20,4 @@ This reworks the upstream PyTorch GAN lesson into one independent notebook. Smal
 
 Outputs are written to `outputs/tutorial_11/`; download them before Colab disconnects. Model files are inference snapshots rather than exact resume checkpoints. See [validation evidence](../docs/validation.md) for tested modes and observed limitations.
 
-Adapted from [PEESE Tutorial 11](https://github.com/PEESEgroup/SysEn6888/tree/0b326ded95e415d7a60660879aaa737e3c7d79ea/Tutorial_11_Generative_Modeling_GAN); upstream MIT attribution is retained in [LICENSE](../LICENSE).
+License information is available in the repository LICENSE.
